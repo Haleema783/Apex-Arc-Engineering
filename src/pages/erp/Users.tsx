@@ -251,8 +251,9 @@ const Users = () => {
       <PageHeader
         title="Users"
         description="Create employee logins, manage admin / staff access, and review pending approvals."
-        actions={<CreateEmployeeDialog onCreated={load} />}
-      />
+      >
+        <CreateEmployeeDialog onCreated={load} />
+      </PageHeader>
 
       {loading ? (
         <div className="grid place-items-center py-16">

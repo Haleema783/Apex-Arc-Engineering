@@ -12,7 +12,6 @@ import AdminLayout from "@/components/erp/AdminLayout";
 import StaffLayout from "@/components/erp/StaffLayout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import Dashboard from "./pages/erp/Dashboard";
 import Clients from "./pages/erp/Clients";
 import Vendors from "./pages/erp/Vendors";
@@ -74,7 +73,6 @@ const App = () => (
               <Route path="/" element={<Home />} />
             </Route>
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
 
             {/* Legacy /erp entry — send users to their own panel */}
             <Route path="/erp/*" element={<PanelRedirect />} />

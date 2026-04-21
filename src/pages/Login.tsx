@@ -6,12 +6,20 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, Clock } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
 
+// Employees sign in with the Employee ID issued by their admin.
+// We look up the linked email via a SECURITY DEFINER RPC and then call
+// supabase.auth.signInWithPassword under the hood.
 const signInSchema = z.object({
-  email: z.string().trim().email().max(255),
-  password: z.string().min(6).max(100),
+  employee_id: z
+    .string()
+    .trim()
+    .min(3, "Enter your Employee ID")
+    .max(40)
+    .regex(/^[A-Za-z0-9-]+$/, "Employee ID may only contain letters, digits, and dashes"),
+  password: z.string().min(6, "Enter your password").max(100),
 });
 
 const Login = () => {
@@ -25,45 +33,36 @@ const Login = () => {
     if (!parsed.success) return toast.error(parsed.error.issues[0].message);
 
     setLoading(true);
+    // Normalize EMP-#### to upper-case for consistency
+    const employeeId = parsed.data.employee_id.toUpperCase();
+
+    const { data: emailRow, error: lookupErr } = await supabase.rpc(
+      "get_email_for_employee_id",
+      { _employee_id: employeeId }
+    );
+    if (lookupErr) {
+      setLoading(false);
+      return toast.error(lookupErr.message);
+    }
+    if (!emailRow) {
+      setLoading(false);
+      return toast.error("Employee ID not found or account is inactive");
+    }
+
     const { data: signInData, error } = await supabase.auth.signInWithPassword({
-      email: parsed.data.email,
+      email: emailRow as string,
       password: parsed.data.password,
     });
 
     if (error) {
       setLoading(false);
-      return toast.error(error.message);
+      return toast.error("Incorrect Employee ID or password");
     }
 
     const userId = signInData.user?.id;
     if (!userId) {
       setLoading(false);
       return toast.error("Sign-in failed");
-    }
-
-    // Approval gate: check profile status before allowing access
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("approval_status, rejection_reason")
-      .eq("user_id", userId)
-      .maybeSingle();
-
-    if (profile && profile.approval_status !== "approved") {
-      await supabase.auth.signOut();
-      setLoading(false);
-      if (profile.approval_status === "rejected") {
-        toast.error(
-          profile.rejection_reason
-            ? `Your account was not approved: ${profile.rejection_reason}`
-            : "Your account was not approved. Please contact support."
-        );
-      } else {
-        toast.message("Your account is under review", {
-          description: "Please wait for admin approval before signing in.",
-          icon: <Clock className="h-4 w-4" />,
-        });
-      }
-      return;
     }
 
     // Role-based panel routing — admins go to /admin, staff to /staff
@@ -97,7 +96,7 @@ const Login = () => {
           </p>
         </div>
         <p className="text-xs text-primary-foreground/60">
-          Note: new accounts require admin approval before sign-in.
+          Accounts are issued by your administrator. Contact them if you need access.
         </p>
       </div>
 
@@ -111,12 +110,21 @@ const Login = () => {
             Apex Arc Engineering
           </Link>
 
-          <h1 className="font-display text-2xl font-bold">Welcome back</h1>
-          <p className="text-sm text-muted-foreground mt-1">Access your Apex Arc Engineering ERP workspace.</p>
+          <h1 className="font-display text-2xl font-bold">Employee sign in</h1>
+          <p className="text-sm text-muted-foreground mt-1">
+            Use the Employee ID and password issued by your administrator.
+          </p>
           <form onSubmit={handleSignIn} className="mt-6 space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="si-email">Email</Label>
-              <Input id="si-email" name="email" type="email" autoComplete="email" required />
+              <Label htmlFor="si-employee-id">Employee ID</Label>
+              <Input
+                id="si-employee-id"
+                name="employee_id"
+                placeholder="EMP-0001"
+                autoComplete="username"
+                autoCapitalize="characters"
+                required
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="si-password">Password</Label>
@@ -133,11 +141,8 @@ const Login = () => {
             </Button>
           </form>
 
-          <p className="mt-6 text-sm text-center text-muted-foreground">
-            New to Apex Arc Engineering?{" "}
-            <Link to="/signup" className="text-primary font-medium hover:underline">
-              Create an account
-            </Link>
+          <p className="mt-6 text-xs text-center text-muted-foreground">
+            Forgot your password? Ask an administrator to reset it for you.
           </p>
         </div>
       </div>

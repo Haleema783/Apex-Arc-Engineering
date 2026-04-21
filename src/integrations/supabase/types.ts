@@ -371,8 +371,10 @@ export type Database = {
           approved_by: string | null
           created_at: string
           email: string | null
+          employee_id: string
           full_name: string | null
           id: string
+          is_active: boolean
           organization: string | null
           phone: string | null
           rejection_reason: string | null
@@ -386,8 +388,10 @@ export type Database = {
           approved_by?: string | null
           created_at?: string
           email?: string | null
+          employee_id: string
           full_name?: string | null
           id?: string
+          is_active?: boolean
           organization?: string | null
           phone?: string | null
           rejection_reason?: string | null
@@ -401,8 +405,10 @@ export type Database = {
           approved_by?: string | null
           created_at?: string
           email?: string | null
+          employee_id?: string
           full_name?: string | null
           id?: string
+          is_active?: boolean
           organization?: string | null
           phone?: string | null
           rejection_reason?: string | null
@@ -697,6 +703,10 @@ export type Database = {
     }
     Functions: {
       generate_doc_no: { Args: { _doc_type: string }; Returns: string }
+      get_email_for_employee_id: {
+        Args: { _employee_id: string }
+        Returns: string
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -705,6 +715,7 @@ export type Database = {
         Returns: boolean
       }
       is_issuing_status: { Args: { _status: string }; Returns: boolean }
+      next_employee_id: { Args: never; Returns: string }
     }
     Enums: {
       app_role: "admin" | "staff"

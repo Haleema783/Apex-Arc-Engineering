@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
 import PageHeader from "@/components/erp/PageHeader";
 import EmptyState from "@/components/erp/EmptyState";
+import CreateEmployeeDialog from "@/components/erp/CreateEmployeeDialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -20,6 +21,8 @@ interface ProfileRow {
   approval_status: "pending" | "approved" | "rejected";
   rejection_reason: string | null;
   created_at: string;
+  employee_id: string | null;
+  is_active: boolean;
   roles: ("admin" | "staff")[];
 }
 
@@ -35,7 +38,7 @@ const Users = () => {
       supabase
         .from("profiles")
         .select(
-          "user_id, email, full_name, phone, organization, role_interest, approval_status, rejection_reason, created_at"
+          "user_id, email, full_name, phone, organization, role_interest, approval_status, rejection_reason, created_at, employee_id, is_active"
         )
         .order("created_at", { ascending: false }),
       supabase.from("user_roles").select("user_id, role"),
@@ -166,8 +169,8 @@ const Users = () => {
     <Table>
       <TableHeader>
         <TableRow>
+          <TableHead>Employee ID</TableHead>
           <TableHead>Name</TableHead>
-          <TableHead>Email</TableHead>
           <TableHead>Roles</TableHead>
           <TableHead className="text-right">Actions</TableHead>
         </TableRow>
@@ -178,8 +181,8 @@ const Users = () => {
           const isSelf = r.user_id === user?.id;
           return (
             <TableRow key={r.user_id}>
+              <TableCell className="font-mono text-sm">{r.employee_id ?? "—"}</TableCell>
               <TableCell className="font-medium">{r.full_name ?? "—"}</TableCell>
-              <TableCell className="text-muted-foreground">{r.email ?? "—"}</TableCell>
               <TableCell>
                 <div className="flex gap-1">
                   {r.roles.map((role) => (
@@ -245,7 +248,12 @@ const Users = () => {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Users" description="Approve new sign-ups and manage admin / staff access." />
+      <PageHeader
+        title="Users"
+        description="Create employee logins, manage admin / staff access, and review pending approvals."
+      >
+        <CreateEmployeeDialog onCreated={load} />
+      </PageHeader>
 
       {loading ? (
         <div className="grid place-items-center py-16">

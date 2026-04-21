@@ -42,14 +42,9 @@ const SiteHeader = () => {
               <Link to={panelHref}>{isAdmin ? "Admin panel" : "Staff panel"}</Link>
             </Button>
           ) : (
-            <>
-              <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
-                <Link to="/login">Sign in</Link>
-              </Button>
-              <Button asChild variant="hero" size="sm">
-                <Link to="/signup">Get started</Link>
-              </Button>
-            </>
+            <Button asChild variant="hero" size="sm">
+              <Link to="/login">Employee sign in</Link>
+            </Button>
           )}
         </div>
       </div>

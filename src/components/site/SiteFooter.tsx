@@ -19,8 +19,7 @@ const SiteFooter = () => (
       <div>
         <h4 className="font-semibold text-sm mb-3">Product</h4>
         <ul className="space-y-2 text-sm text-muted-foreground">
-          <li><Link to="/login" className="hover:text-foreground">ERP login</Link></li>
-          <li><Link to="/signup" className="hover:text-foreground">Get started</Link></li>
+          <li><Link to="/login" className="hover:text-foreground">Employee sign in</Link></li>
         </ul>
       </div>
       <div>

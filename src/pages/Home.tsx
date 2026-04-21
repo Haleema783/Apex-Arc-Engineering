@@ -39,10 +39,7 @@ const Home = () => (
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild variant="hero" size="lg">
-              <Link to="/login">Start free <ArrowRight className="ml-1 h-4 w-4" /></Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="bg-white/5 border-white/20 text-primary-foreground hover:bg-white/10 hover:text-primary-foreground">
-              <Link to="/signup">Create account</Link>
+              <Link to="/login">Employee sign in <ArrowRight className="ml-1 h-4 w-4" /></Link>
             </Button>
           </div>
           <div className="mt-10 flex flex-wrap gap-6">

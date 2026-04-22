@@ -73,11 +73,96 @@ const Inventory = () => {
         actionLabel="New item"
         onAction={() => { setEditing(null); setEditOpen(true); }}
       >
-        <div className="relative">
+        <div className="relative w-full sm:w-auto">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search code or name…" value={q} onChange={(e) => setQ(e.target.value)} className="pl-8 w-64" />
+          <Input placeholder="Search code or name…" value={q} onChange={(e) => setQ(e.target.value)} className="pl-8 w-full sm:w-64" />
         </div>
       </PageHeader>
+
+      <Tabs value={activeCat} onValueChange={setActiveCat}>
+        <TabsList className="flex flex-wrap h-auto">
+          <TabsTrigger value="all">All</TabsTrigger>
+          {categories.map((c) => <TabsTrigger key={c.id} value={c.id}>{c.name}</TabsTrigger>)}
+        </TabsList>
+      </Tabs>
+
+      <div className="rounded-xl border bg-card shadow-card overflow-x-auto">
+        {loading ? (
+          <div className="grid place-items-center py-16"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground" /></div>
+        ) : filtered.length === 0 ? (
+          <EmptyState
+            icon={<Package className="h-5 w-5" />}
+            title={q || activeCat !== "all" ? "No matches" : "No inventory yet"}
+            description={q || activeCat !== "all" ? "Try a different filter." : "Add your first item to start quoting."}
+            action={!q && activeCat === "all" && <Button variant="hero" onClick={() => { setEditing(null); setEditOpen(true); }}>New item</Button>}
+          />
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Code</TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead className="hidden md:table-cell">Category</TableHead>
+                <TableHead className="text-right">Stock</TableHead>
+                <TableHead className="text-right hidden sm:table-cell">Last rate</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filtered.map((it) => {
+                const low = it.current_stock <= it.reorder_level && it.reorder_level > 0;
+                return (
+                  <TableRow key={it.id}>
+                    <TableCell className="font-mono text-xs">{it.item_code}</TableCell>
+                    <TableCell>
+                      <div className="font-medium">{it.name}</div>
+                      {it.notes && <div className="text-xs text-muted-foreground truncate max-w-[200px] sm:max-w-xs">{it.notes}</div>}
+                      <div className="sm:hidden text-xs text-muted-foreground tabular-nums mt-0.5">
+                        ₨ {Number(it.last_rate).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      </div>
+                    </TableCell>
+                    <TableCell className="hidden md:table-cell">
+                      {it.inventory_categories?.name && (
+                        <Badge variant="secondary" className="font-normal">{it.inventory_categories.name}</Badge>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-right tabular-nums">
+                      <div className="whitespace-nowrap">{Number(it.current_stock).toLocaleString()} <span className="text-xs text-muted-foreground">{it.unit}</span></div>
+                      {low && <Badge variant="destructive" className="mt-1 text-[10px]">Low</Badge>}
+                    </TableCell>
+                    <TableCell className="text-right tabular-nums hidden sm:table-cell whitespace-nowrap">
+                      ₨ {Number(it.last_rate).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className="inline-flex gap-1 flex-wrap justify-end">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setRateFor(it)}
+                          aria-label="Rate history"
+                          title="View and record rate history"
+                          className="h-8 gap-1.5"
+                        >
+                          <History className="h-3.5 w-3.5" />
+                          <span className="hidden sm:inline">Rate History</span>
+                        </Button>
+                        <Button variant="ghost" size="icon" onClick={() => { setEditing(it); setEditOpen(true); }} aria-label="Edit" className="h-8 w-8">
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        {isAdmin && (
+                          <Button variant="ghost" size="icon" onClick={() => setDeleteId(it.id)} aria-label="Delete" className="h-8 w-8 text-destructive hover:text-destructive">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        )}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        )}
+      </div>
 
       <Tabs value={activeCat} onValueChange={setActiveCat}>
         <TabsList>

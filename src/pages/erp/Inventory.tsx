@@ -162,6 +162,7 @@ const Inventory = () => {
             </TableBody>
           </Table>
         )}
+      </div>
 
       <ItemFormDialog open={editOpen} onOpenChange={setEditOpen} item={editing} categories={categories} onSaved={loadAll} />
 

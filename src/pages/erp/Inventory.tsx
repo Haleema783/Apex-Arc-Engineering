@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { Pencil, Trash2, Search, Package, Loader2, Receipt } from "lucide-react";
+import { Pencil, Trash2, Search, Package, Loader2, History } from "lucide-react";
 
 interface InventoryRow extends ItemRecord {
   inventory_categories: { name: string } | null;

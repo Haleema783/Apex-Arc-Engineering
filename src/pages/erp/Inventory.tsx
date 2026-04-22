@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { Pencil, Trash2, Search, Package, Loader2, Receipt } from "lucide-react";
+import { Pencil, Trash2, Search, Package, Loader2, History } from "lucide-react";
 
 interface InventoryRow extends ItemRecord {
   inventory_categories: { name: string } | null;
@@ -73,20 +73,20 @@ const Inventory = () => {
         actionLabel="New item"
         onAction={() => { setEditing(null); setEditOpen(true); }}
       >
-        <div className="relative">
+        <div className="relative w-full sm:w-auto">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search code or name…" value={q} onChange={(e) => setQ(e.target.value)} className="pl-8 w-64" />
+          <Input placeholder="Search code or name…" value={q} onChange={(e) => setQ(e.target.value)} className="pl-8 w-full sm:w-64" />
         </div>
       </PageHeader>
 
       <Tabs value={activeCat} onValueChange={setActiveCat}>
-        <TabsList>
+        <TabsList className="flex flex-wrap h-auto">
           <TabsTrigger value="all">All</TabsTrigger>
           {categories.map((c) => <TabsTrigger key={c.id} value={c.id}>{c.name}</TabsTrigger>)}
         </TabsList>
       </Tabs>
 
-      <div className="rounded-xl border bg-card shadow-card">
+      <div className="rounded-xl border bg-card shadow-card overflow-x-auto">
         {loading ? (
           <div className="grid place-items-center py-16"><Loader2 className="h-5 w-5 animate-spin text-muted-foreground" /></div>
         ) : filtered.length === 0 ? (
@@ -102,9 +102,9 @@ const Inventory = () => {
               <TableRow>
                 <TableHead>Code</TableHead>
                 <TableHead>Name</TableHead>
-                <TableHead>Category</TableHead>
+                <TableHead className="hidden md:table-cell">Category</TableHead>
                 <TableHead className="text-right">Stock</TableHead>
-                <TableHead className="text-right">Last rate</TableHead>
+                <TableHead className="text-right hidden sm:table-cell">Last rate</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -116,30 +116,41 @@ const Inventory = () => {
                     <TableCell className="font-mono text-xs">{it.item_code}</TableCell>
                     <TableCell>
                       <div className="font-medium">{it.name}</div>
-                      {it.notes && <div className="text-xs text-muted-foreground truncate max-w-xs">{it.notes}</div>}
+                      {it.notes && <div className="text-xs text-muted-foreground truncate max-w-[200px] sm:max-w-xs">{it.notes}</div>}
+                      <div className="sm:hidden text-xs text-muted-foreground tabular-nums mt-0.5">
+                        ₨ {Number(it.last_rate).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      </div>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="hidden md:table-cell">
                       {it.inventory_categories?.name && (
                         <Badge variant="secondary" className="font-normal">{it.inventory_categories.name}</Badge>
                       )}
                     </TableCell>
                     <TableCell className="text-right tabular-nums">
-                      <div>{Number(it.current_stock).toLocaleString()} <span className="text-xs text-muted-foreground">{it.unit}</span></div>
+                      <div className="whitespace-nowrap">{Number(it.current_stock).toLocaleString()} <span className="text-xs text-muted-foreground">{it.unit}</span></div>
                       {low && <Badge variant="destructive" className="mt-1 text-[10px]">Low</Badge>}
                     </TableCell>
-                    <TableCell className="text-right tabular-nums">
+                    <TableCell className="text-right tabular-nums hidden sm:table-cell whitespace-nowrap">
                       ₨ {Number(it.last_rate).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </TableCell>
                     <TableCell className="text-right">
-                      <div className="inline-flex gap-1">
-                        <Button variant="ghost" size="icon" onClick={() => setRateFor(it)} aria-label="Record rate" title="Record rate">
-                          <Receipt className="h-4 w-4" />
+                      <div className="inline-flex gap-1 flex-wrap justify-end">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setRateFor(it)}
+                          aria-label="Rate history"
+                          title="View and record rate history"
+                          className="h-8 gap-1.5"
+                        >
+                          <History className="h-3.5 w-3.5" />
+                          <span className="hidden sm:inline">Rate History</span>
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={() => { setEditing(it); setEditOpen(true); }} aria-label="Edit">
+                        <Button variant="ghost" size="icon" onClick={() => { setEditing(it); setEditOpen(true); }} aria-label="Edit" className="h-8 w-8">
                           <Pencil className="h-4 w-4" />
                         </Button>
                         {isAdmin && (
-                          <Button variant="ghost" size="icon" onClick={() => setDeleteId(it.id)} aria-label="Delete" className="text-destructive hover:text-destructive">
+                          <Button variant="ghost" size="icon" onClick={() => setDeleteId(it.id)} aria-label="Delete" className="h-8 w-8 text-destructive hover:text-destructive">
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         )}

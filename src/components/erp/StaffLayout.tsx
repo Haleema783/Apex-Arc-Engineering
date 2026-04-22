@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   LayoutDashboard, FileText, Package, Users, Truck, LogOut, ShieldCheck,
-  Receipt, Send, Wallet, History, ClipboardList, BarChart3, ScrollText,
+  Receipt, Send, Wallet, History, ClipboardList, BarChart3, ScrollText, Menu,
 } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
 
@@ -23,9 +25,47 @@ const items = [
   { to: "/staff/reports", label: "Reports", icon: BarChart3 },
 ];
 
+const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+  `flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-smooth ${
+    isActive
+      ? "bg-sidebar-accent text-sidebar-accent-foreground"
+      : "text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
+  }`;
+
+const SidebarBody = ({ onNavigate, onSignOut, email }: { onNavigate?: () => void; onSignOut: () => void; email?: string | null }) => (
+  <div className="flex h-full flex-col bg-sidebar text-sidebar-foreground">
+    <Link to="/staff" onClick={onNavigate} className="flex items-center gap-2 px-6 h-16 border-b border-sidebar-border">
+      <span className="grid h-10 w-10 place-items-center rounded-md bg-sidebar-primary-foreground/10 p-1">
+        <BrandLogo />
+      </span>
+      <div className="flex flex-col">
+        <span className="font-display font-bold text-lg leading-tight">Apex Arc</span>
+        <span className="text-[10px] uppercase tracking-wider text-sidebar-foreground/60">Staff panel</span>
+      </div>
+    </Link>
+    <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+      {items.map((it) => (
+        <NavLink key={it.to} to={it.to} end={it.end} onClick={onNavigate} className={navLinkClass}>
+          <it.icon className="h-4 w-4" /> {it.label}
+        </NavLink>
+      ))}
+    </nav>
+    <div className="p-3 border-t border-sidebar-border space-y-2">
+      <div className="flex items-center gap-2 px-2 text-xs text-sidebar-foreground/70 truncate">
+        <ShieldCheck className="h-3.5 w-3.5 shrink-0" />
+        <span className="truncate">Staff · {email}</span>
+      </div>
+      <Button onClick={onSignOut} variant="ghost" size="sm" className="w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
+        <LogOut className="h-4 w-4 mr-2" /> Sign out
+      </Button>
+    </div>
+  </div>
+);
+
 const StaffLayout = () => {
   const { signOut, user } = useAuth();
   const navigate = useNavigate();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleSignOut = async () => {
     await signOut();
@@ -34,51 +74,28 @@ const StaffLayout = () => {
 
   return (
     <div className="min-h-screen flex bg-muted/30">
-      <aside className="hidden md:flex w-64 flex-col bg-sidebar text-sidebar-foreground">
-        <Link to="/staff" className="flex items-center gap-2 px-6 h-16 border-b border-sidebar-border">
-          <span className="grid h-10 w-10 place-items-center rounded-md bg-sidebar-primary-foreground/10 p-1">
-            <BrandLogo />
-          </span>
-          <div className="flex flex-col">
-            <span className="font-display font-bold text-lg leading-tight">Apex Arc</span>
-            <span className="text-[10px] uppercase tracking-wider text-sidebar-foreground/60">Staff panel</span>
-          </div>
-        </Link>
-        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
-          {items.map((it) => (
-            <NavLink
-              key={it.to}
-              to={it.to}
-              end={it.end}
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-smooth ${
-                  isActive
-                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                    : "text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
-                }`
-              }
-            >
-              <it.icon className="h-4 w-4" /> {it.label}
-            </NavLink>
-          ))}
-        </nav>
-        <div className="p-3 border-t border-sidebar-border space-y-2">
-          <div className="flex items-center gap-2 px-2 text-xs text-sidebar-foreground/70">
-            <ShieldCheck className="h-3.5 w-3.5" />
-            Staff · {user?.email}
-          </div>
-          <Button onClick={handleSignOut} variant="ghost" size="sm" className="w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
-            <LogOut className="h-4 w-4 mr-2" /> Sign out
-          </Button>
-        </div>
+      <aside className="hidden md:flex w-64 flex-col">
+        <SidebarBody onSignOut={handleSignOut} email={user?.email} />
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="md:hidden h-14 border-b bg-card flex items-center justify-between px-4">
-          <Link to="/staff" className="font-display font-bold text-primary">Apex Arc · Staff</Link>
+        <header className="md:hidden h-14 border-b bg-card flex items-center justify-between px-3 sticky top-0 z-30">
+          <div className="flex items-center gap-2">
+            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" aria-label="Open menu">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="p-0 w-72 max-w-[85vw] border-r-0">
+                <SidebarBody onNavigate={() => setMobileOpen(false)} onSignOut={handleSignOut} email={user?.email} />
+              </SheetContent>
+            </Sheet>
+            <Link to="/staff" className="font-display font-bold text-primary text-sm">Apex Arc · Staff</Link>
+          </div>
           <Button variant="ghost" size="sm" onClick={handleSignOut}>Sign out</Button>
         </header>
-        <main className="flex-1 p-6 md:p-8">
+        <main className="flex-1 p-4 sm:p-6 md:p-8 min-w-0">
           <Outlet />
         </main>
       </div>

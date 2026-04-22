@@ -92,8 +92,10 @@ const RecordRateDialog = ({ open, onOpenChange, itemId, itemName, itemCurrentLas
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Record rate — {itemName}</DialogTitle>
-          <DialogDescription>Stored as an immutable snapshot in the rate history log.</DialogDescription>
+          <DialogTitle className="flex items-center gap-2">
+            <span>🕓</span> Rate History — {itemName}
+          </DialogTitle>
+          <DialogDescription>View past rates and record a new snapshot. Each entry is stored immutably for audit.</DialogDescription>
         </DialogHeader>
 
         {lastThree.length > 0 && (

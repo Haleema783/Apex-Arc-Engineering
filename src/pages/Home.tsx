@@ -1,302 +1,496 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { toast } from "@/hooks/use-toast";
 import Seo from "@/components/Seo";
+import heroImg from "@/assets/hero-industrial.jpg";
+import capElectrical from "@/assets/cap-electrical.jpg";
+import capCivil from "@/assets/cap-civil.jpg";
+import capAutomation from "@/assets/cap-automation.jpg";
+import capEnergy from "@/assets/cap-energy.jpg";
 import {
   ArrowRight,
   Bolt,
   HardHat,
   Wrench,
   Building2,
-  FileText,
-  Package,
-  Calculator,
+  Cpu,
+  Factory,
+  Zap,
   ShieldCheck,
+  Layers,
+  Globe2,
+  Gauge,
+  Award,
+  Mail,
   MapPin,
   Phone,
-  Mail,
   Clock,
   CheckCircle2,
-  Award,
-  Factory,
+  ChevronRight,
 } from "lucide-react";
-
-const features = [
-  { icon: FileText, title: "Quote → Invoice flow", desc: "One-click conversion from quotation to bill, invoice and delivery challan." },
-  { icon: Package, title: "Inventory + rate history", desc: "Last 3 client rates suggested on every line item." },
-  { icon: Calculator, title: "FBR-ready tax engine", desc: "FST 17%, IT 3%, KAPRA 1%, PEPRA 4%, inclusive or exclusive." },
-  { icon: ShieldCheck, title: "Audit trail", desc: "Every rate change, document and approval is tracked." },
-];
-
-const disciplines = [
-  { icon: Bolt, label: "Electrical" },
-  { icon: Wrench, label: "Mechanical" },
-  { icon: Building2, label: "Civil" },
-  { icon: HardHat, label: "Industrial" },
-];
 
 const services = [
   {
     icon: Bolt,
     title: "Electrical Engineering",
-    desc: "LT/HT panel manufacturing, distribution boards, control systems, factory wiring, lighting design and power distribution for industrial and commercial sites.",
+    desc: "LT/HT panels, substations, distribution systems, control & instrumentation, factory electrification and protective relay coordination.",
+  },
+  {
+    icon: Building2,
+    title: "Civil & Infrastructure",
+    desc: "Industrial sheds, foundations, machine pedestals, substation civil works and turnkey civil packages for greenfield plants.",
+  },
+  {
+    icon: Factory,
+    title: "Industrial Engineering",
+    desc: "Plant layout, process piping, utilities, structural fabrication and full mechanical-electrical-plumbing (MEP) integration.",
   },
   {
     icon: Wrench,
     title: "Mechanical Engineering",
-    desc: "Fabrication, structural steel, piping, HVAC ducting, on-site welding and installation services for plants and process facilities.",
+    desc: "Heavy fabrication, HVAC, compressed air, fluid systems, on-site welding, erection and commissioning of process equipment.",
   },
   {
-    icon: Building2,
-    title: "Civil & Structural",
-    desc: "Foundations, sheds, machine pedestals, civil works for substations and turnkey works for new and expanding factories.",
+    icon: Cpu,
+    title: "Automation & Smart Systems",
+    desc: "PLC / SCADA programming, HMI panels, industrial IoT, energy monitoring and intelligent control upgrades for legacy plants.",
   },
   {
-    icon: Factory,
-    title: "Industrial Maintenance",
-    desc: "Annual maintenance contracts, breakdown support, panel retrofits, preventive maintenance and shutdown jobs across mills and factories.",
+    icon: Zap,
+    title: "Energy & Power Solutions",
+    desc: "Solar PV systems, captive power, transformers, capacitor banks, power-quality audits and energy-efficiency retrofits.",
+  },
+];
+
+const domains = [
+  { icon: Bolt, label: "Electrical" },
+  { icon: Building2, label: "Civil" },
+  { icon: Wrench, label: "Mechanical" },
+  { icon: Factory, label: "Industrial" },
+  { icon: Zap, label: "Energy" },
+  { icon: Cpu, label: "Automation" },
+];
+
+const capabilities = [
+  {
+    img: capElectrical,
+    title: "Power & Control Systems",
+    desc: "Complete switchgear rooms, MCC panels, busways and SCADA-integrated control systems for process industries.",
+  },
+  {
+    img: capCivil,
+    title: "Industrial Infrastructure",
+    desc: "Greenfield factory shells, structural steel buildings, heavy foundations and turnkey civil packages.",
+  },
+  {
+    img: capAutomation,
+    title: "Smart Manufacturing",
+    desc: "Robotics integration, PLC retrofits, MES connectivity and Industry 4.0 upgrades for existing production lines.",
+  },
+  {
+    img: capEnergy,
+    title: "Energy Infrastructure",
+    desc: "Solar plants, grid-tie systems, transformer yards and end-to-end EPC for medium and high-voltage assets.",
   },
 ];
 
 const stats = [
-  { value: "12+", label: "Years in business" },
+  { value: "12+", label: "Years of operations" },
   { value: "200+", label: "Projects delivered" },
-  { value: "60+", label: "Active clients" },
+  { value: "60+", label: "Active enterprise clients" },
   { value: "30+", label: "Engineers & technicians" },
 ];
 
 const why = [
-  "Licensed contractors with experienced engineers and certified electricians",
-  "FBR-aligned invoicing with NTN, sales tax, IT, KAPRA & PEPRA support",
-  "On-site survey, transparent BOQ-based quotations and clear delivery timelines",
-  "After-sales support and AMC contracts for installed systems",
+  {
+    icon: Layers,
+    title: "Multi-domain expertise",
+    desc: "Electrical, civil, mechanical, automation and energy — engineered under one accountable team.",
+  },
+  {
+    icon: Gauge,
+    title: "Scalable execution",
+    desc: "From single-line panel jobs to full-plant EPC contracts, with transparent BOQ-based pricing.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Industrial-grade reliability",
+    desc: "Compliant designs, certified materials and audited rate history on every line item.",
+  },
+  {
+    icon: Globe2,
+    title: "Technology integration",
+    desc: "PLC/SCADA, IoT and energy analytics built into every install — your plant talks back to you.",
+  },
+  {
+    icon: Award,
+    title: "Professional standards",
+    desc: "Documented quotations, milestone-based delivery, after-sales AMC contracts and FBR-aligned billing.",
+  },
+  {
+    icon: HardHat,
+    title: "Safety-first culture",
+    desc: "Trained crews, PPE-mandatory sites and method statements for every critical activity.",
+  },
 ];
 
-const Home = () => (
-  <>
-    <Seo
-      title="Apex Arc Engineering — Electrical, Mechanical & Civil Contractors in Pakistan"
-      description="Apex Arc Engineering designs, fabricates, installs and maintains electrical, mechanical and civil systems for factories, mills and commercial projects across Pakistan."
-    />
-    {/* Hero */}
-    <section className="relative overflow-hidden bg-gradient-hero text-primary-foreground">
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 20% 20%, hsl(38 92% 60% / 0.4), transparent 40%), radial-gradient(circle at 80% 60%, hsl(200 90% 60% / 0.3), transparent 40%)",
-        }}
+const Home = () => {
+  const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.message) {
+      toast({ title: "Missing details", description: "Name, email and message are required.", variant: "destructive" });
+      return;
+    }
+    setSending(true);
+    const subject = encodeURIComponent(`Enquiry from ${form.name}${form.company ? " · " + form.company : ""}`);
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nEmail: ${form.email}\nCompany: ${form.company || "—"}\n\n${form.message}`,
+    );
+    window.location.href = `mailto:arcengineering86@gmail.com?subject=${subject}&body=${body}`;
+    setTimeout(() => setSending(false), 800);
+  };
+
+  return (
+    <>
+      <Seo
+        title="Apex Arc Engineering — Integrated Engineering Solutions for Industry"
+        description="Apex Arc Engineering is a multi-disciplinary engineering enterprise delivering electrical, civil, mechanical, industrial, automation and energy solutions at scale across Pakistan."
       />
-      <div className="container relative py-20 md:py-32 grid gap-10 md:grid-cols-2 items-center animate-fade-in">
-        <div>
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3 py-1 text-xs font-medium backdrop-blur">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            Engineering contractors · Pakistan · FBR-registered
-          </span>
-          <h1 className="mt-6 font-display text-3xl sm:text-4xl md:text-6xl font-bold leading-tight">
-            Apex Arc Engineering
-          </h1>
-          <p className="mt-3 text-lg sm:text-xl text-primary-foreground/90 font-medium">
-            End-to-end electrical, mechanical & civil engineering solutions.
-          </p>
-          <p className="mt-4 text-base sm:text-lg text-primary-foreground/80 max-w-xl">
-            We design, fabricate, install and maintain industrial systems for factories,
-            mills, commercial buildings and infrastructure projects across Pakistan.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild variant="hero" size="lg">
-              <Link to="/login">
-                Employee login <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="bg-white/10 border-white/30 text-primary-foreground hover:bg-white/20 hover:text-primary-foreground">
-              <a href="#contact">Request a quote</a>
-            </Button>
+
+      {/* HERO */}
+      <section className="relative overflow-hidden text-primary-foreground">
+        <div className="absolute inset-0">
+          <img
+            src={heroImg}
+            alt="Industrial power plant and electrical grid at blue hour"
+            className="h-full w-full object-cover"
+            width={1920}
+            height={1080}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/95 via-primary/85 to-primary/70" />
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 15% 20%, hsl(38 92% 60% / 0.35), transparent 45%), radial-gradient(circle at 85% 75%, hsl(200 90% 60% / 0.3), transparent 45%)",
+            }}
+          />
+        </div>
+
+        <div className="container relative py-24 md:py-36 lg:py-44 animate-fade-in">
+          <div className="max-w-3xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              Multi-disciplinary engineering enterprise · Pakistan
+            </span>
+            <h1 className="mt-6 font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05]">
+              Integrated Engineering Solutions <span className="text-accent">Across Industries</span>
+            </h1>
+            <p className="mt-6 text-lg sm:text-xl text-primary-foreground/85 max-w-2xl leading-relaxed">
+              Delivering Industrial, Electrical, Civil, Mechanical & Smart Engineering
+              services at enterprise scale — from greenfield plants to large-scale modernisation.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Button asChild variant="hero" size="lg" className="text-base">
+                <a href="#services">
+                  Explore services <ArrowRight className="ml-1 h-4 w-4" />
+                </a>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="bg-white/10 border-white/30 text-primary-foreground hover:bg-white/20 hover:text-primary-foreground text-base"
+              >
+                <a href="#contact">Get in touch</a>
+              </Button>
+            </div>
           </div>
-          <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
-            {disciplines.map((d) => (
-              <div key={d.label} className="flex items-center gap-2 text-sm text-primary-foreground/80">
-                <d.icon className="h-4 w-4 text-accent" /> {d.label}
+        </div>
+
+        {/* Stat strip */}
+        <div className="relative border-t border-white/10 bg-primary/40 backdrop-blur-md">
+          <div className="container grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
+            {stats.map((s) => (
+              <div key={s.label} className="py-6 px-4 text-center md:text-left">
+                <div className="font-display text-2xl md:text-3xl font-bold text-accent">{s.value}</div>
+                <div className="text-xs md:text-sm text-primary-foreground/75 mt-1">{s.label}</div>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Stat card */}
-        <div className="relative animate-fade-in-slow">
-          <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-md p-6 shadow-elegant">
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-primary-foreground/70">
-              <Award className="h-4 w-4 text-accent" /> A trusted engineering partner
-            </div>
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              {stats.map((s) => (
-                <div key={s.label} className="rounded-lg bg-white/5 p-4">
-                  <div className="font-display text-2xl font-bold text-accent">{s.value}</div>
-                  <div className="text-xs text-primary-foreground/70 mt-1">{s.label}</div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 space-y-2 text-sm">
-              {why.slice(0, 2).map((line) => (
-                <div key={line} className="flex items-start gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 shrink-0" />
-                  <span className="text-primary-foreground/85">{line}</span>
-                </div>
-              ))}
-            </div>
+      {/* ABOUT */}
+      <section id="about" className="container py-20 md:py-28">
+        <div className="grid gap-12 md:grid-cols-12 items-start">
+          <div className="md:col-span-5">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">About the enterprise</span>
+            <h2 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
+              A multi-disciplinary engineering partner for industry.
+            </h2>
+          </div>
+          <div className="md:col-span-7 space-y-5 text-base sm:text-lg text-muted-foreground leading-relaxed">
+            <p>
+              Apex Arc Engineering is a Pakistan-based engineering enterprise delivering
+              integrated <strong className="text-foreground">electrical, civil, mechanical, industrial, automation and energy</strong> solutions
+              to factories, mills, infrastructure projects and large commercial clients.
+            </p>
+            <p>
+              We bring design, fabrication, installation and long-term maintenance under one
+              accountable team — combining seasoned engineers, certified electricians and
+              fabricators with a documented BOQ-driven workflow and FBR-aligned billing.
+            </p>
+            <p>
+              From a single LT panel to a turnkey factory, our delivery model scales with the
+              project — built on innovation, reliability and industrial excellence.
+            </p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* About */}
-    <section id="about" className="container py-16 md:py-20">
-      <div className="grid gap-10 md:grid-cols-2 items-start">
-        <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-primary">About us</span>
-          <h2 className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
-            Trusted electrical, mechanical & civil engineering contractor in Pakistan.
-          </h2>
-          <p className="mt-4 text-muted-foreground leading-relaxed">
-            Apex Arc Engineering is a Pakistan-based engineering contractor specialising in
-            electrical, mechanical and civil works for industrial and commercial clients. From
-            LT/HT panel manufacturing to complete factory electrification, structural fabrication
-            and ongoing maintenance — we run every job on documented quotations, BOQs and FBR-aligned
-            invoicing so our clients always know what they're paying for.
-          </p>
-          <p className="mt-4 text-muted-foreground leading-relaxed">
-            Our in-house team of engineers, electricians and fabricators handles design, supply,
-            installation and after-sales support, backed by an audited inventory and rate history
-            for every line item.
-          </p>
-        </div>
-        <div className="rounded-xl border bg-card p-6 shadow-card">
-          <h3 className="font-semibold text-foreground flex items-center gap-2">
-            <ShieldCheck className="h-5 w-5 text-primary" /> Why clients choose us
-          </h3>
-          <ul className="mt-4 space-y-3">
-            {why.map((line) => (
-              <li key={line} className="flex items-start gap-2 text-sm text-muted-foreground">
-                <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                <span>{line}</span>
-              </li>
+      {/* SERVICES */}
+      <section id="services" className="bg-muted/40 border-y">
+        <div className="container py-20 md:py-28">
+          <div className="max-w-2xl">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Core services</span>
+            <h2 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
+              Enterprise engineering services, end-to-end.
+            </h2>
+            <p className="mt-4 text-muted-foreground text-lg">
+              Six core practices, fully integrated — so your project doesn't get handed off
+              between disconnected vendors.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((s) => (
+              <article
+                key={s.title}
+                className="group rounded-xl border bg-card p-7 shadow-card hover:shadow-elegant transition-smooth hover:-translate-y-1"
+              >
+                <span className="inline-grid h-12 w-12 place-items-center rounded-lg bg-gradient-primary text-primary-foreground shadow-glow">
+                  <s.icon className="h-6 w-6" />
+                </span>
+                <h3 className="mt-5 font-display text-xl font-semibold text-foreground">{s.title}</h3>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                <div className="mt-5 inline-flex items-center text-sm font-medium text-primary group-hover:gap-2 gap-1 transition-all">
+                  Learn more <ChevronRight className="h-4 w-4" />
+                </div>
+              </article>
             ))}
-          </ul>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* Services */}
-    <section id="services" className="bg-muted/30 border-y">
-      <div className="container py-16 md:py-20">
+      {/* DOMAINS */}
+      <section id="domains" className="container py-20 md:py-28">
         <div className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-wider text-primary">Our services</span>
-          <h2 className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
-            Turnkey engineering services — electrical, mechanical, civil & maintenance.
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Engineering domains</span>
+          <h2 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
+            Six engineering domains, one accountable team.
           </h2>
-          <p className="mt-3 text-muted-foreground">
-            We cover four core disciplines under one roof, so your project doesn't get
-            handed off across multiple vendors.
-          </p>
         </div>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((s) => (
-            <div key={s.title} className="rounded-xl border bg-card p-6 shadow-card hover:shadow-elegant transition-smooth">
-              <span className="grid h-10 w-10 place-items-center rounded-md bg-gradient-primary text-primary-foreground">
-                <s.icon className="h-5 w-5" />
+        <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          {domains.map((d) => (
+            <div
+              key={d.label}
+              className="group relative overflow-hidden rounded-xl border bg-gradient-to-br from-card to-muted/40 p-6 text-center shadow-card hover:shadow-elegant transition-smooth"
+            >
+              <div className="absolute inset-x-0 -top-1 h-1 bg-gradient-accent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <span className="inline-grid h-14 w-14 place-items-center rounded-full bg-primary/5 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-smooth">
+                <d.icon className="h-6 w-6" />
               </span>
-              <h3 className="mt-4 font-semibold text-foreground">{s.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+              <div className="mt-4 font-display font-semibold text-foreground">{d.label}</div>
             </div>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* Internal platform */}
-    <section className="container py-16 md:py-20">
-      <div className="max-w-2xl">
-        <span className="text-xs font-semibold uppercase tracking-wider text-primary">Inside the workshop</span>
-        <h2 className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
-          A back office built for engineering work.
-        </h2>
-        <p className="mt-3 text-muted-foreground">
-          Every job is tracked end-to-end on our internal ERP — quotations, inventory, rate
-          history, taxes, payments and delivery challans — so finance and the field stay in sync.
-        </p>
-      </div>
-      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {features.map((f) => (
-          <div key={f.title} className="rounded-xl border bg-card p-6 shadow-card hover:shadow-elegant transition-smooth">
-            <span className="grid h-10 w-10 place-items-center rounded-md bg-gradient-primary text-primary-foreground">
-              <f.icon className="h-5 w-5" />
-            </span>
-            <h3 className="mt-4 font-semibold text-foreground">{f.title}</h3>
-            <p className="mt-2 text-sm text-muted-foreground">{f.desc}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    {/* Contact */}
-    <section id="contact" className="bg-muted/30 border-y">
-      <div className="container py-16 md:py-20">
-        <div className="grid gap-10 md:grid-cols-2 items-start">
-          <div>
-            <span className="text-xs font-semibold uppercase tracking-wider text-primary">Get in touch</span>
-            <h2 className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
-              Tell us about your project.
+      {/* CAPABILITIES / PROJECTS */}
+      <section id="capabilities" className="bg-primary text-primary-foreground">
+        <div className="container py-20 md:py-28">
+          <div className="max-w-2xl">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Projects & capabilities</span>
+            <h2 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
+              Enterprise-scale engineering capabilities.
             </h2>
-            <p className="mt-3 text-muted-foreground">
-              Send a drawing, a BOQ, or just describe what you need. Our team will get back to
-              you with a site visit or an itemised quotation, usually within 1–2 working days.
+            <p className="mt-4 text-primary-foreground/80 text-lg">
+              From substation construction to smart-factory upgrades, we engineer industrial
+              systems that operate at scale — and stay running.
             </p>
           </div>
-          <div className="rounded-xl border bg-card p-6 shadow-card space-y-4">
-            <a href="mailto:arcengineering86@gmail.com" className="flex items-start gap-3 group">
-              <span className="grid h-10 w-10 place-items-center rounded-md bg-primary/10 text-primary shrink-0">
-                <Mail className="h-5 w-5" />
-              </span>
-              <div className="min-w-0">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground">Email</div>
-                <div className="font-medium text-foreground group-hover:text-primary transition-smooth break-all">
-                  arcengineering86@gmail.com
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {capabilities.map((c) => (
+              <article
+                key={c.title}
+                className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:border-accent/40 transition-smooth"
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={c.img}
+                    alt={c.title}
+                    loading="lazy"
+                    width={1024}
+                    height={768}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
                 </div>
-              </div>
-            </a>
-            <div className="flex items-start gap-3">
-              <span className="grid h-10 w-10 place-items-center rounded-md bg-primary/10 text-primary shrink-0">
-                <Phone className="h-5 w-5" />
-              </span>
-              <div>
-                <div className="text-xs uppercase tracking-wider text-muted-foreground">Phone</div>
-                <div className="font-medium text-foreground">Available on request</div>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <span className="grid h-10 w-10 place-items-center rounded-md bg-primary/10 text-primary shrink-0">
-                <MapPin className="h-5 w-5" />
-              </span>
-              <div>
-                <div className="text-xs uppercase tracking-wider text-muted-foreground">Location</div>
-                <div className="font-medium text-foreground">Pakistan</div>
-                <div className="text-xs text-muted-foreground">Serving clients nationwide</div>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <span className="grid h-10 w-10 place-items-center rounded-md bg-primary/10 text-primary shrink-0">
-                <Clock className="h-5 w-5" />
-              </span>
-              <div>
-                <div className="text-xs uppercase tracking-wider text-muted-foreground">Working hours</div>
-                <div className="font-medium text-foreground">Mon – Sat · 9:00 AM – 7:00 PM</div>
-              </div>
-            </div>
+                <div className="p-5">
+                  <h3 className="font-display text-lg font-semibold">{c.title}</h3>
+                  <p className="mt-2 text-sm text-primary-foreground/75 leading-relaxed">{c.desc}</p>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-  </>
-);
+      {/* WHY CHOOSE US */}
+      <section id="why" className="container py-20 md:py-28">
+        <div className="max-w-2xl">
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Why choose us</span>
+          <h2 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
+            Built for industrial-grade execution.
+          </h2>
+        </div>
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {why.map((w) => (
+            <div key={w.title} className="rounded-xl border bg-card p-7 shadow-card hover:shadow-elegant transition-smooth">
+              <span className="inline-grid h-11 w-11 place-items-center rounded-lg bg-accent/10 text-accent">
+                <w.icon className="h-5 w-5" />
+              </span>
+              <h3 className="mt-5 font-display text-lg font-semibold text-foreground">{w.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{w.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className="bg-muted/40 border-y">
+        <div className="container py-20 md:py-28">
+          <div className="grid gap-12 lg:grid-cols-2 items-start">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Contact</span>
+              <h2 className="mt-4 font-display text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight">
+                Tell us about your project.
+              </h2>
+              <p className="mt-4 text-muted-foreground text-lg">
+                Share your drawing, BOQ or scope. Our engineering team will respond with a
+                site visit or itemised proposal — usually within 1–2 working days.
+              </p>
+
+              <div className="mt-10 space-y-5">
+                <a href="mailto:arcengineering86@gmail.com" className="flex items-start gap-4 group">
+                  <span className="grid h-11 w-11 place-items-center rounded-lg bg-primary/10 text-primary shrink-0">
+                    <Mail className="h-5 w-5" />
+                  </span>
+                  <div className="min-w-0">
+                    <div className="text-xs uppercase tracking-wider text-muted-foreground">Official email</div>
+                    <div className="font-medium text-foreground group-hover:text-primary transition-smooth break-all">
+                      arcengineering86@gmail.com
+                    </div>
+                  </div>
+                </a>
+                <div className="flex items-start gap-4">
+                  <span className="grid h-11 w-11 place-items-center rounded-lg bg-primary/10 text-primary shrink-0">
+                    <Phone className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <div className="text-xs uppercase tracking-wider text-muted-foreground">Phone</div>
+                    <div className="font-medium text-foreground">Available on request</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <span className="grid h-11 w-11 place-items-center rounded-lg bg-primary/10 text-primary shrink-0">
+                    <MapPin className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <div className="text-xs uppercase tracking-wider text-muted-foreground">Location</div>
+                    <div className="font-medium text-foreground">Pakistan</div>
+                    <div className="text-xs text-muted-foreground">Serving enterprise clients nationwide</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <span className="grid h-11 w-11 place-items-center rounded-lg bg-primary/10 text-primary shrink-0">
+                    <Clock className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <div className="text-xs uppercase tracking-wider text-muted-foreground">Working hours</div>
+                    <div className="font-medium text-foreground">Mon – Sat · 9:00 AM – 7:00 PM</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Inquiry form */}
+            <form
+              onSubmit={handleSubmit}
+              className="rounded-xl border bg-card p-6 sm:p-8 shadow-elegant space-y-5"
+            >
+              <div className="grid gap-5 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name *</Label>
+                  <Input
+                    id="name"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    placeholder="Your full name"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email *</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    placeholder="you@company.com"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="company">Company</Label>
+                <Input
+                  id="company"
+                  value={form.company}
+                  onChange={(e) => setForm({ ...form, company: e.target.value })}
+                  placeholder="Organisation (optional)"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="message">Project details *</Label>
+                <Textarea
+                  id="message"
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  placeholder="Tell us about the scope, location and timeline."
+                  rows={5}
+                  required
+                />
+              </div>
+              <Button type="submit" variant="hero" size="lg" className="w-full" disabled={sending}>
+                {sending ? "Opening email…" : "Send enquiry"} <ArrowRight className="ml-1 h-4 w-4" />
+              </Button>
+              <p className="text-xs text-muted-foreground flex items-start gap-2">
+                <CheckCircle2 className="h-3.5 w-3.5 text-success mt-0.5 shrink-0" />
+                Submitting opens your mail client addressed to our official inbox.
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
 
 export default Home;

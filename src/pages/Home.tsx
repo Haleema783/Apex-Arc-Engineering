@@ -154,7 +154,7 @@ const Home = () => (
         <div>
           <span className="text-xs font-semibold uppercase tracking-wider text-primary">About us</span>
           <h2 className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
-            Engineering services built on craftsmanship and accountability.
+            Trusted electrical, mechanical & civil engineering contractor in Pakistan.
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed">
             Apex Arc Engineering is a Pakistan-based engineering contractor specialising in
@@ -191,7 +191,7 @@ const Home = () => (
         <div className="max-w-2xl">
           <span className="text-xs font-semibold uppercase tracking-wider text-primary">Our services</span>
           <h2 className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
-            Turnkey engineering, from drawing board to handover.
+            Turnkey engineering services — electrical, mechanical, civil & maintenance.
           </h2>
           <p className="mt-3 text-muted-foreground">
             We cover four core disciplines under one roof, so your project doesn't get

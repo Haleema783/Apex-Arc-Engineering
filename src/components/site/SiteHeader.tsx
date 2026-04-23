@@ -43,7 +43,7 @@ const SiteHeader = () => {
             </Button>
           ) : (
             <Button asChild variant="hero" size="sm">
-              <Link to="/login">Employee sign in</Link>
+              <Link to="/login">Employee login</Link>
             </Button>
           )}
         </div>

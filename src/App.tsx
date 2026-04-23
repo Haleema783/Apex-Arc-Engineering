@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import ScrollToTop from "@/components/ScrollToTop";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -59,60 +60,61 @@ const sharedOperationalRoutes = (
 );
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AuthProvider>
-          <ScrollToTop />
-          <Routes>
-            {/* Public marketing site */}
-            {/* Public marketing site */}
-            <Route element={<SiteLayout />}>
-              <Route path="/" element={<Home />} />
-            </Route>
-            <Route path="/login" element={<Login />} />
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AuthProvider>
+            <ScrollToTop />
+            <Routes>
+              {/* Public marketing site */}
+              <Route element={<SiteLayout />}>
+                <Route path="/" element={<Home />} />
+              </Route>
+              <Route path="/login" element={<Login />} />
 
-            {/* Legacy /erp entry — send users to their own panel */}
-            <Route path="/erp/*" element={<PanelRedirect />} />
+              {/* Legacy /erp entry — send users to their own panel */}
+              <Route path="/erp/*" element={<PanelRedirect />} />
 
-            {/* Admin panel — strictly admin-only */}
-            <Route
-              path="/admin"
-              element={
-                <RoleRoute allow="admin">
-                  <AdminLayout />
-                </RoleRoute>
-              }
-            >
-              {sharedOperationalRoutes}
-              <Route path="users" element={<Users />} />
-              <Route path="tax" element={<TaxSettings />} />
+              {/* Admin panel — strictly admin-only */}
               <Route
-                path="settings"
-                element={<ModulePlaceholder title="Admin settings" description="Company details and preferences." />}
-              />
-            </Route>
+                path="/admin"
+                element={
+                  <RoleRoute allow="admin">
+                    <AdminLayout />
+                  </RoleRoute>
+                }
+              >
+                {sharedOperationalRoutes}
+                <Route path="users" element={<Users />} />
+                <Route path="tax" element={<TaxSettings />} />
+                <Route
+                  path="settings"
+                  element={<ModulePlaceholder title="Admin settings" description="Company details and preferences." />}
+                />
+              </Route>
 
-            {/* Staff panel — strictly staff-only (no admin modules) */}
-            <Route
-              path="/staff"
-              element={
-                <RoleRoute allow="staff">
-                  <StaffLayout />
-                </RoleRoute>
-              }
-            >
-              {sharedOperationalRoutes}
-            </Route>
+              {/* Staff panel — strictly staff-only (no admin modules) */}
+              <Route
+                path="/staff"
+                element={
+                  <RoleRoute allow="staff">
+                    <StaffLayout />
+                  </RoleRoute>
+                }
+              >
+                {sharedOperationalRoutes}
+              </Route>
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AuthProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;

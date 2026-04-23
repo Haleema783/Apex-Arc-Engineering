@@ -6,8 +6,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
+import { Loader2, Eye, EyeOff } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
+import Seo from "@/components/Seo";
 
 // Employees sign in with the Employee ID issued by their admin.
 // We look up the linked email via a SECURITY DEFINER RPC and then call
@@ -25,6 +26,7 @@ const signInSchema = z.object({
 const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -79,6 +81,10 @@ const Login = () => {
 
   return (
     <div className="min-h-screen grid md:grid-cols-2">
+      <Seo
+        title="Employee Login — Apex Arc Engineering ERP"
+        description="Secure employee login for the Apex Arc Engineering ERP. Use the Employee ID and password issued by your administrator."
+      />
       {/* Left visual */}
       <div className="hidden md:flex relative overflow-hidden bg-gradient-hero text-primary-foreground p-12 flex-col justify-between">
         <Link to="/" className="inline-flex items-center gap-2 font-display text-lg font-bold">
@@ -110,7 +116,7 @@ const Login = () => {
             Apex Arc Engineering
           </Link>
 
-          <h1 className="font-display text-2xl font-bold">Employee sign in</h1>
+          <h1 className="font-display text-2xl font-bold">Employee login</h1>
           <p className="text-sm text-muted-foreground mt-1">
             Use the Employee ID and password issued by your administrator.
           </p>
@@ -128,16 +134,29 @@ const Login = () => {
             </div>
             <div className="space-y-2">
               <Label htmlFor="si-password">Password</Label>
-              <Input
-                id="si-password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-              />
+              <div className="relative">
+                <Input
+                  id="si-password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
+                  required
+                  className="pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground transition-smooth"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  aria-pressed={showPassword}
+                  tabIndex={-1}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
             </div>
             <Button type="submit" variant="hero" className="w-full" disabled={loading}>
-              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Sign in"}
+              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Login"}
             </Button>
           </form>
 

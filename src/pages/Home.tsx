@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import Seo from "@/components/Seo";
 import {
   ArrowRight,
   Bolt,
@@ -15,7 +16,6 @@ import {
   Mail,
   Clock,
   CheckCircle2,
-  Users,
   Award,
   Factory,
 } from "lucide-react";
@@ -73,6 +73,10 @@ const why = [
 
 const Home = () => (
   <>
+    <Seo
+      title="Apex Arc Engineering — Electrical, Mechanical & Civil Contractors in Pakistan"
+      description="Apex Arc Engineering designs, fabricates, installs and maintains electrical, mechanical and civil systems for factories, mills and commercial projects across Pakistan."
+    />
     {/* Hero */}
     <section className="relative overflow-hidden bg-gradient-hero text-primary-foreground">
       <div
@@ -101,7 +105,7 @@ const Home = () => (
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild variant="hero" size="lg">
               <Link to="/login">
-                Employee sign in <ArrowRight className="ml-1 h-4 w-4" />
+                Employee login <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="bg-white/10 border-white/30 text-primary-foreground hover:bg-white/20 hover:text-primary-foreground">
@@ -150,7 +154,7 @@ const Home = () => (
         <div>
           <span className="text-xs font-semibold uppercase tracking-wider text-primary">About us</span>
           <h2 className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
-            Engineering services built on craftsmanship and accountability.
+            Trusted electrical, mechanical & civil engineering contractor in Pakistan.
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed">
             Apex Arc Engineering is a Pakistan-based engineering contractor specialising in
@@ -187,7 +191,7 @@ const Home = () => (
         <div className="max-w-2xl">
           <span className="text-xs font-semibold uppercase tracking-wider text-primary">Our services</span>
           <h2 className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
-            Turnkey engineering, from drawing board to handover.
+            Turnkey engineering services — electrical, mechanical, civil & maintenance.
           </h2>
           <p className="mt-3 text-muted-foreground">
             We cover four core disciplines under one roof, so your project doesn't get
@@ -292,30 +296,6 @@ const Home = () => (
       </div>
     </section>
 
-    {/* CTA */}
-    <section className="container py-16 md:py-20">
-      <div className="rounded-2xl bg-gradient-primary p-8 md:p-14 text-primary-foreground shadow-elegant flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div>
-          <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-bold">
-            Working on a new project?
-          </h3>
-          <p className="mt-2 text-primary-foreground/85 max-w-xl">
-            Share your requirements and we'll prepare a transparent, itemised quotation.
-            Existing employees can sign in to access the internal panel.
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          <Button asChild variant="hero" size="lg">
-            <a href="mailto:arcengineering86@gmail.com">
-              <Mail className="mr-1 h-4 w-4" /> Email us
-            </a>
-          </Button>
-          <Button asChild variant="outline" size="lg" className="bg-white/10 border-white/30 text-primary-foreground hover:bg-white/20 hover:text-primary-foreground">
-            <Link to="/login">Employee sign in</Link>
-          </Button>
-        </div>
-      </div>
-    </section>
   </>
 );
 

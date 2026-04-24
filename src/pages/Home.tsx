@@ -171,23 +171,20 @@ const Reveal = ({
   children,
   className = "",
   delay = 0,
-  as: Tag = "div",
 }: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
-  as?: keyof JSX.IntrinsicElements;
 }) => {
   const { ref, revealed } = useReveal<HTMLDivElement>();
   return (
-    // @ts-expect-error - dynamic tag
-    <Tag
+    <div
       ref={ref}
       style={revealed ? { animationDelay: `${delay}ms` } : undefined}
       className={`${className} ${revealed ? "animate-reveal-up" : "opacity-0"}`}
     >
       {children}
-    </Tag>
+    </div>
   );
 };
 

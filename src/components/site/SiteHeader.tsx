@@ -20,15 +20,15 @@ const SiteHeader = () => {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-lg">
-      <div className="container flex h-16 items-center justify-between gap-3">
+      <div className="container flex h-16 sm:h-20 items-center justify-between gap-3">
         <Link
           to="/"
-          className="flex items-center gap-2 font-display text-base sm:text-lg font-bold text-primary min-w-0"
+          aria-label="Apex Arc Engineering — home"
+          className="flex items-center min-w-0 shrink-0 transition-opacity hover:opacity-90"
         >
-          <span className="grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-md bg-background ring-1 ring-border p-1 shrink-0">
-            <BrandLogo />
-          </span>
-          <span className="truncate">Apex Arc Engineering</span>
+          <BrandLogo
+            className="h-10 sm:h-12 md:h-14 w-auto max-w-[200px] sm:max-w-[240px] md:max-w-[280px]"
+          />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1">

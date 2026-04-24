@@ -1,22 +1,25 @@
-import logoIcon from "@/assets/logo-icon.png";
+import logoSrc from "@/assets/apex-arc-logo.jpg";
 import { cn } from "@/lib/utils";
 
 interface BrandLogoProps {
   className?: string;
   alt?: string;
+  /** Set to "eager" for above-the-fold logo (header). Defaults to "eager" since logo is critical. */
+  loading?: "eager" | "lazy";
 }
 
 /**
- * Apex Arc Engineering icon mark (no wordmark).
- * Use inside a sized container — the image fills it via object-contain.
+ * Apex Arc Engineering full logo (icon + wordmark).
+ * Use inside a sized container — image scales via object-contain to keep aspect ratio.
  */
-const BrandLogo = ({ className, alt = "Apex Arc Engineering" }: BrandLogoProps) => (
+const BrandLogo = ({ className, alt = "Apex Arc Engineering", loading = "eager" }: BrandLogoProps) => (
   <img
-    src={logoIcon}
+    src={logoSrc}
     alt={alt}
-    loading="lazy"
-    width={512}
-    height={512}
+    loading={loading}
+    decoding="async"
+    width={1536}
+    height={1024}
     className={cn("h-full w-full object-contain", className)}
   />
 );

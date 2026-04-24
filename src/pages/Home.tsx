@@ -534,15 +534,18 @@ const Home = () => {
                     </div>
                   </div>
                 </a>
-                <div className="flex items-start gap-4">
-                  <span className="grid h-11 w-11 place-items-center rounded-lg bg-primary/10 text-primary shrink-0">
+                <a href="tel:+923009742946" className="flex items-start gap-4 group">
+                  <span className="grid h-11 w-11 place-items-center rounded-lg bg-primary/10 text-primary shrink-0 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                     <Phone className="h-5 w-5" />
                   </span>
                   <div>
                     <h3 className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Phone</h3>
-                    <div className="font-medium text-foreground">Available on request</div>
+                    <div className="font-medium text-foreground group-hover:text-primary transition-colors">
+                      0300 9742946
+                    </div>
+                    <div className="text-xs text-muted-foreground">Tap to call · Mon – Sat</div>
                   </div>
-                </div>
+                </a>
                 <div className="flex items-start gap-4">
                   <span className="grid h-11 w-11 place-items-center rounded-lg bg-primary/10 text-primary shrink-0">
                     <MapPin className="h-5 w-5" />

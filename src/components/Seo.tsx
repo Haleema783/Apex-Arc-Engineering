@@ -18,7 +18,7 @@ const Seo = ({
   title,
   description,
   canonical,
-  image = "/placeholder.svg",
+  image = "/og-image.jpg",
   type = "website",
   jsonLd,
 }: SeoProps) => {

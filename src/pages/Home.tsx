@@ -57,12 +57,12 @@ const domains = [
 
 /* ---------- Key Services (6) ---------- */
 const services = [
-  { icon: PanelsTopLeft, title: "PLC / HMI Automation", desc: "Sensors, actuators & control logic." },
-  { icon: Bolt, title: "Power & Control Panels", desc: "Design, build & site installation." },
-  { icon: Flame, title: "Welding & Cutting", desc: "Multi-process facilities on site." },
-  { icon: Wrench, title: "Maintenance & Recovery", desc: "Breakdown response & uptime care." },
-  { icon: PencilRuler, title: "Design & Consultancy", desc: "Engineering drafting & advisory." },
-  { icon: Layers, title: "Structural Fabrication", desc: "Pathways, frames & support works." },
+  { icon: PanelsTopLeft, title: "PLC / HMI Automation", desc: "Sensors, actuators & control logic.", image: serviceAutomationImg },
+  { icon: Bolt, title: "Power & Control Panels", desc: "Design, build & site installation.", image: serviceElectricalImg },
+  { icon: Flame, title: "Welding & Cutting", desc: "Multi-process facilities on site.", image: serviceWeldingImg },
+  { icon: Wrench, title: "Maintenance & Recovery", desc: "Breakdown response & uptime care.", image: capAutomationImg },
+  { icon: PencilRuler, title: "Design & Consultancy", desc: "Engineering drafting & advisory.", image: capCivilImg },
+  { icon: Layers, title: "Structural Fabrication", desc: "Pathways, frames & support works.", image: capEnergyImg },
 ];
 
 const stats = [

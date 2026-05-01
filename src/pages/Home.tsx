@@ -10,6 +10,14 @@ import ImageWithFallback from "@/components/ImageWithFallback";
 import { useReveal } from "@/hooks/useReveal";
 import { supabase } from "@/integrations/supabase/client";
 import heroImg from "@/assets/hero-industrial.jpg";
+import aboutTeamImg from "@/assets/about-team.jpg";
+import serviceAutomationImg from "@/assets/service-automation.jpg";
+import serviceWeldingImg from "@/assets/service-welding.jpg";
+import serviceElectricalImg from "@/assets/service-electrical.jpg";
+import capabilityMonitoringImg from "@/assets/capability-monitoring.jpg";
+import capCivilImg from "@/assets/cap-civil.jpg";
+import capAutomationImg from "@/assets/cap-automation.jpg";
+import capEnergyImg from "@/assets/cap-energy.jpg";
 import {
   ArrowRight,
   Bolt,
@@ -49,12 +57,12 @@ const domains = [
 
 /* ---------- Key Services (6) ---------- */
 const services = [
-  { icon: PanelsTopLeft, title: "PLC / HMI Automation", desc: "Sensors, actuators & control logic." },
-  { icon: Bolt, title: "Power & Control Panels", desc: "Design, build & site installation." },
-  { icon: Flame, title: "Welding & Cutting", desc: "Multi-process facilities on site." },
-  { icon: Wrench, title: "Maintenance & Recovery", desc: "Breakdown response & uptime care." },
-  { icon: PencilRuler, title: "Design & Consultancy", desc: "Engineering drafting & advisory." },
-  { icon: Layers, title: "Structural Fabrication", desc: "Pathways, frames & support works." },
+  { icon: PanelsTopLeft, title: "PLC / HMI Automation", desc: "Sensors, actuators & control logic.", image: serviceAutomationImg },
+  { icon: Bolt, title: "Power & Control Panels", desc: "Design, build & site installation.", image: serviceElectricalImg },
+  { icon: Flame, title: "Welding & Cutting", desc: "Multi-process facilities on site.", image: serviceWeldingImg },
+  { icon: Wrench, title: "Maintenance & Recovery", desc: "Breakdown response & uptime care.", image: capAutomationImg },
+  { icon: PencilRuler, title: "Design & Consultancy", desc: "Engineering drafting & advisory.", image: capCivilImg },
+  { icon: Layers, title: "Structural Fabrication", desc: "Pathways, frames & support works.", image: capEnergyImg },
 ];
 
 const stats = [
@@ -249,8 +257,8 @@ const Home = () => {
 
       {/* ABOUT */}
       <Section id="about" ariaLabelledBy="about-heading" className="bg-background">
-        <div className="grid gap-8 md:grid-cols-12 items-center">
-          <Reveal className="md:col-span-5">
+        <div className="grid gap-8 md:gap-12 lg:grid-cols-2 items-center">
+          <Reveal className="order-2 lg:order-1">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
               About
             </span>
@@ -260,19 +268,31 @@ const Home = () => {
             >
               A multi-disciplinary engineering partner for industry.
             </h2>
+            <div className="mt-5 space-y-4 text-base md:text-lg text-muted-foreground">
+              <p>
+                Apex Arc Engineering delivers integrated{" "}
+                <strong className="text-foreground">
+                  electrical, civil, mechanical, automation and energy
+                </strong>{" "}
+                solutions to factories, mills and large commercial clients across Pakistan.
+              </p>
+              <p>
+                Design, fabrication, installation and long-term maintenance — under one
+                accountable team with documented BOQ-driven workflow.
+              </p>
+            </div>
           </Reveal>
-          <Reveal delay={100} className="md:col-span-7 space-y-4 text-base md:text-lg text-muted-foreground">
-            <p>
-              Apex Arc Engineering delivers integrated{" "}
-              <strong className="text-foreground">
-                electrical, civil, mechanical, automation and energy
-              </strong>{" "}
-              solutions to factories, mills and large commercial clients across Pakistan.
-            </p>
-            <p>
-              Design, fabrication, installation and long-term maintenance — under one
-              accountable team with documented BOQ-driven workflow.
-            </p>
+          <Reveal delay={120} className="order-1 lg:order-2">
+            <div className="relative aspect-[4/3] sm:aspect-[16/10] rounded-2xl overflow-hidden border shadow-elegant">
+              <ImageWithFallback
+                src={aboutTeamImg}
+                alt="Apex Arc engineers reviewing schematics in a control room"
+                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                width={1280}
+                height={896}
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-accent/10 pointer-events-none" />
+            </div>
           </Reveal>
         </div>
       </Section>
@@ -328,19 +348,31 @@ const Home = () => {
           </h2>
         </Reveal>
 
-        <div className="mt-6 md:mt-8 grid gap-3 sm:gap-4 grid-cols-2 md:grid-cols-3">
+        <div className="mt-6 md:mt-8 grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
             <Reveal key={s.title} delay={i * 50}>
-              <article className="group h-full rounded-xl border bg-gradient-to-br from-card to-muted/40 p-4 sm:p-5 shadow-card transition-all duration-300 ease-smooth hover:shadow-elegant hover:-translate-y-1 hover:border-accent/40 hover:scale-[1.02]">
-                <span className="inline-grid h-10 w-10 place-items-center rounded-lg bg-accent/10 text-accent transition-all duration-300 group-hover:bg-accent group-hover:text-accent-foreground group-hover:scale-110">
-                  <s.icon className="h-5 w-5" />
-                </span>
-                <h3 className="mt-3 font-display text-sm sm:text-base font-semibold text-foreground leading-tight">
-                  {s.title}
-                </h3>
-                <p className="mt-1 text-[11px] sm:text-xs text-muted-foreground leading-snug">
-                  {s.desc}
-                </p>
+              <article className="group h-full overflow-hidden rounded-xl border bg-card shadow-card transition-all duration-300 ease-smooth hover:shadow-elegant hover:-translate-y-1 hover:border-accent/40">
+                <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+                  <ImageWithFallback
+                    src={s.image}
+                    alt={`${s.title} — Apex Arc Engineering service`}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    width={1024}
+                    height={768}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
+                  <span className="absolute top-3 left-3 inline-grid h-10 w-10 place-items-center rounded-lg bg-accent text-accent-foreground shadow-glow transition-transform duration-300 group-hover:scale-110">
+                    <s.icon className="h-5 w-5" />
+                  </span>
+                </div>
+                <div className="p-4 sm:p-5">
+                  <h3 className="font-display text-base sm:text-lg font-semibold text-foreground leading-tight">
+                    {s.title}
+                  </h3>
+                  <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground leading-snug">
+                    {s.desc}
+                  </p>
+                </div>
               </article>
             </Reveal>
           ))}
@@ -353,6 +385,16 @@ const Home = () => {
         ariaLabelledBy="capabilities-heading"
         className="bg-primary text-primary-foreground"
       >
+        <div className="absolute inset-0 -z-10 opacity-20">
+          <ImageWithFallback
+            src={capabilityMonitoringImg}
+            alt=""
+            className="h-full w-full object-cover"
+            width={1280}
+            height={720}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary/70" />
+        </div>
         <Reveal className="max-w-2xl">
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
             Capabilities

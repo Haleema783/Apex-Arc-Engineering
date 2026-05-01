@@ -385,6 +385,16 @@ const Home = () => {
         ariaLabelledBy="capabilities-heading"
         className="bg-primary text-primary-foreground"
       >
+        <div className="absolute inset-0 -z-10 opacity-20">
+          <ImageWithFallback
+            src={capabilityMonitoringImg}
+            alt=""
+            className="h-full w-full object-cover"
+            width={1280}
+            height={720}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary/70" />
+        </div>
         <Reveal className="max-w-2xl">
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
             Capabilities

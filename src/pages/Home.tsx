@@ -10,6 +10,14 @@ import ImageWithFallback from "@/components/ImageWithFallback";
 import { useReveal } from "@/hooks/useReveal";
 import { supabase } from "@/integrations/supabase/client";
 import heroImg from "@/assets/hero-industrial.jpg";
+import aboutTeamImg from "@/assets/about-team.jpg";
+import serviceAutomationImg from "@/assets/service-automation.jpg";
+import serviceWeldingImg from "@/assets/service-welding.jpg";
+import serviceElectricalImg from "@/assets/service-electrical.jpg";
+import capabilityMonitoringImg from "@/assets/capability-monitoring.jpg";
+import capCivilImg from "@/assets/cap-civil.jpg";
+import capAutomationImg from "@/assets/cap-automation.jpg";
+import capEnergyImg from "@/assets/cap-energy.jpg";
 import {
   ArrowRight,
   Bolt,

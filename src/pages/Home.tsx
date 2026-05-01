@@ -348,19 +348,31 @@ const Home = () => {
           </h2>
         </Reveal>
 
-        <div className="mt-6 md:mt-8 grid gap-3 sm:gap-4 grid-cols-2 md:grid-cols-3">
+        <div className="mt-6 md:mt-8 grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((s, i) => (
             <Reveal key={s.title} delay={i * 50}>
-              <article className="group h-full rounded-xl border bg-gradient-to-br from-card to-muted/40 p-4 sm:p-5 shadow-card transition-all duration-300 ease-smooth hover:shadow-elegant hover:-translate-y-1 hover:border-accent/40 hover:scale-[1.02]">
-                <span className="inline-grid h-10 w-10 place-items-center rounded-lg bg-accent/10 text-accent transition-all duration-300 group-hover:bg-accent group-hover:text-accent-foreground group-hover:scale-110">
-                  <s.icon className="h-5 w-5" />
-                </span>
-                <h3 className="mt-3 font-display text-sm sm:text-base font-semibold text-foreground leading-tight">
-                  {s.title}
-                </h3>
-                <p className="mt-1 text-[11px] sm:text-xs text-muted-foreground leading-snug">
-                  {s.desc}
-                </p>
+              <article className="group h-full overflow-hidden rounded-xl border bg-card shadow-card transition-all duration-300 ease-smooth hover:shadow-elegant hover:-translate-y-1 hover:border-accent/40">
+                <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+                  <ImageWithFallback
+                    src={s.image}
+                    alt={`${s.title} — Apex Arc Engineering service`}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    width={1024}
+                    height={768}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
+                  <span className="absolute top-3 left-3 inline-grid h-10 w-10 place-items-center rounded-lg bg-accent text-accent-foreground shadow-glow transition-transform duration-300 group-hover:scale-110">
+                    <s.icon className="h-5 w-5" />
+                  </span>
+                </div>
+                <div className="p-4 sm:p-5">
+                  <h3 className="font-display text-base sm:text-lg font-semibold text-foreground leading-tight">
+                    {s.title}
+                  </h3>
+                  <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground leading-snug">
+                    {s.desc}
+                  </p>
+                </div>
               </article>
             </Reveal>
           ))}

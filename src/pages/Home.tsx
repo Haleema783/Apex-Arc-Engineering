@@ -257,8 +257,8 @@ const Home = () => {
 
       {/* ABOUT */}
       <Section id="about" ariaLabelledBy="about-heading" className="bg-background">
-        <div className="grid gap-8 md:grid-cols-12 items-center">
-          <Reveal className="md:col-span-5">
+        <div className="grid gap-8 md:gap-12 lg:grid-cols-2 items-center">
+          <Reveal className="order-2 lg:order-1">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
               About
             </span>
@@ -268,19 +268,31 @@ const Home = () => {
             >
               A multi-disciplinary engineering partner for industry.
             </h2>
+            <div className="mt-5 space-y-4 text-base md:text-lg text-muted-foreground">
+              <p>
+                Apex Arc Engineering delivers integrated{" "}
+                <strong className="text-foreground">
+                  electrical, civil, mechanical, automation and energy
+                </strong>{" "}
+                solutions to factories, mills and large commercial clients across Pakistan.
+              </p>
+              <p>
+                Design, fabrication, installation and long-term maintenance — under one
+                accountable team with documented BOQ-driven workflow.
+              </p>
+            </div>
           </Reveal>
-          <Reveal delay={100} className="md:col-span-7 space-y-4 text-base md:text-lg text-muted-foreground">
-            <p>
-              Apex Arc Engineering delivers integrated{" "}
-              <strong className="text-foreground">
-                electrical, civil, mechanical, automation and energy
-              </strong>{" "}
-              solutions to factories, mills and large commercial clients across Pakistan.
-            </p>
-            <p>
-              Design, fabrication, installation and long-term maintenance — under one
-              accountable team with documented BOQ-driven workflow.
-            </p>
+          <Reveal delay={120} className="order-1 lg:order-2">
+            <div className="relative aspect-[4/3] sm:aspect-[16/10] rounded-2xl overflow-hidden border shadow-elegant">
+              <ImageWithFallback
+                src={aboutTeamImg}
+                alt="Apex Arc engineers reviewing schematics in a control room"
+                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                width={1280}
+                height={896}
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 via-transparent to-accent/10 pointer-events-none" />
+            </div>
           </Reveal>
         </div>
       </Section>

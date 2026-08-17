@@ -341,7 +341,7 @@ const Home = () => {
 <section
   id="capabilities"
   aria-label="Capabilities"
-className="snap-start relative z-10 -mt-14 md:-mt-20 lg:-mt-24">
+className="snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
   <div className="container">
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
       {metrics.map((m, i) => (

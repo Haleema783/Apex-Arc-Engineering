@@ -12,6 +12,7 @@ import { useReveal } from "@/hooks/useReveal";
 import { supabase } from "@/integrations/supabase/client";
 import HeroSlider from "@/components/site/HeroSlider";
 import heroImg from "@/assets/hero-industrial.jpg";
+import heroIndustrialImg from "@/assets/hero-industrial.jpg";
 import heroSlidePower from "@/assets/hero-slide-power.jpg";
 import heroSlideAutomation from "@/assets/hero-slide-automation.jpg";
 import heroSlideSolar from "@/assets/hero-slide-solar.jpg";
@@ -24,6 +25,7 @@ import capAutomationImg from "@/assets/cap-automation.jpg";
 import capEnergyImg from "@/assets/cap-energy.jpg";
 import ceoPortrait from "@/assets/ceo-portrait.png";
 import capElectricalImg from "@/assets/cap-electrical.jpg";
+import { featuredProjects } from "@/data/projects";
 import {
   ArrowRight,
   Bolt,
@@ -107,27 +109,56 @@ const standards = [
   { code: "ISO 9001:2015", desc: "Quality management aligned processes." },
 ];
 
-/* ---------- Engineering Domains (9) ---------- */
-const domains = [
-  { icon: Bolt, title: "Electrical & Power Systems", desc: "LT/HT panels, distribution, protection." },
-  { icon: Cog, title: "Mechanical Systems Engineering", desc: "Heavy fabrication, HVAC, fluid systems." },
-  { icon: Building2, title: "Structural & Civil Engineering", desc: "Industrial sheds, foundations, MEP civil." },
-  { icon: Cpu, title: "Industrial Automation", desc: "PLC, SCADA, HMI, process control." },
-  { icon: CircuitBoard, title: "Electronics & Embedded Systems", desc: "Sensors, controllers, IoT devices." },
-  { icon: Activity, title: "Digital Operations & Monitoring", desc: "Real-time analytics & dashboards." },
-  { icon: LifeBuoy, title: "Industrial Maintenance Services", desc: "Preventive, predictive, breakdown care." },
-  { icon: Database, title: "Electrical Asset Management", desc: "Asset tagging, audits, AMC contracts." },
-  { icon: Boxes, title: "Parts & Supply Chain Management", desc: "OEM parts, spares, vendor logistics." },
-];
-
-/* ---------- Key Services (6) ---------- */
+/* ---------- Services ---------- */
 const services = [
-  { icon: PanelsTopLeft, title: "PLC / HMI Automation", desc: "Sensors, actuators & control logic.", image: serviceAutomationImg },
-  { icon: Bolt, title: "Power & Control Panels", desc: "Design, build & site installation.", image: serviceElectricalImg },
-  { icon: Flame, title: "Welding & Cutting", desc: "Multi-process facilities on site.", image: serviceWeldingImg },
-  { icon: Wrench, title: "Maintenance & Recovery", desc: "Breakdown response & uptime care.", image: capAutomationImg },
-  { icon: PencilRuler, title: "Design & Consultancy", desc: "Engineering drafting & advisory.", image: capCivilImg },
-  { icon: Layers, title: "Structural Fabrication", desc: "Pathways, frames & support works.", image: capEnergyImg },
+  {
+    icon: PencilRuler,
+    title: "Design & Engineering Consultancy",
+    desc: "Engineering design, drafting, technical consultancy and practical solutions for industrial requirements.",
+    image: capCivilImg,
+  },
+  {
+    icon: Wrench,
+    title: "Project Installation & Erection",
+    desc: "Professional installation, erection and site execution of industrial engineering systems and equipment.",
+    image: capEnergyImg,
+  },
+  {
+    icon: Bolt,
+    title: "Power & Control Systems",
+    desc: "Design, fabrication and installation of electrical power and industrial control systems.",
+    image: serviceElectricalImg,
+  },
+  {
+    icon: PanelsTopLeft,
+    title: "PLC & HMI Automation",
+    desc: "PLC programming, HMI development and automation control solutions for industrial processes.",
+    image: serviceAutomationImg,
+  },
+  {
+    icon: CircuitBoard,
+    title: "Panel Building & Cabling",
+    desc: "Custom electrical and control-panel fabrication with professional cabling and site installation.",
+    image: capAutomationImg,
+  },
+  {
+    icon: Database,
+    title: "Instrumentation & Equipment",
+    desc: "Integration and installation of industrial instrumentation, equipment and control components.",
+    image: capElectricalImg,
+  },
+  {
+    icon: LifeBuoy,
+    title: "Maintenance & Recovery",
+    desc: "Preventive maintenance, breakdown response and recovery services focused on equipment reliability and uptime.",
+    image: serviceWeldingImg,
+  },
+  {
+    icon: Flame,
+    title: "Heating, Boiler & Combustion Solutions",
+    desc: "Engineering solutions for boilers, heating, combustion and related industrial thermal systems.",
+    image: heroIndustrialImg,
+  },
 ];
 
 const stats = [
@@ -563,7 +594,7 @@ className="snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
         `}</style>
       </section>
 
-      {/* SERVICES (Engineering Domains) */}
+      {/* SERVICES */}
       <Section
         id="services"
         ariaLabelledBy="services-heading"
@@ -571,54 +602,21 @@ className="snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
       >
         <Reveal className="max-w-2xl">
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-            Engineering domains
+            Our services
           </span>
           <h2
             id="services-heading"
             className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground leading-tight"
           >
-            Nine engineering domains, one accountable team.
+            Industrial solutions built around your engineering requirements.
           </h2>
         </Reveal>
 
-        <div className="mt-6 md:mt-8 grid gap-3 sm:gap-4 grid-cols-2 md:grid-cols-3">
-          {domains.map((d, i) => (
-            <Reveal key={d.title} delay={i * 40}>
-              <article className="group h-full rounded-xl border bg-card p-3 sm:p-4 md:p-5 shadow-card transition-all duration-300 ease-smooth hover:shadow-elegant hover:-translate-y-1 hover:border-primary/30">
-                <span className="inline-grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-lg bg-gradient-primary text-primary-foreground shadow-glow transition-transform duration-300 group-hover:scale-110">
-                  <d.icon className="h-4 w-4 sm:h-5 sm:w-5" />
-                </span>
-                <h3 className="mt-2 sm:mt-3 font-display text-sm sm:text-base font-semibold text-foreground leading-tight">
-                  {d.title}
-                </h3>
-                <p className="mt-1 text-[11px] sm:text-xs text-muted-foreground leading-snug hidden sm:block">
-                  {d.desc}
-                </p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      {/* DOMAINS (Key Services) */}
-      <Section id="domains" ariaLabelledBy="domains-heading" className="bg-background">
-        <Reveal className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-            Key services
-          </span>
-          <h2
-            id="domains-heading"
-            className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground leading-tight"
-          >
-            Engineering services we deliver on site.
-          </h2>
-        </Reveal>
-
-        <div className="mt-6 md:mt-8 grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-6 md:mt-8 grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((s, i) => (
             <Reveal key={s.title} delay={i * 50}>
               <article className="group h-full overflow-hidden rounded-xl border bg-card shadow-card transition-all duration-300 ease-smooth hover:shadow-elegant hover:-translate-y-1 hover:border-accent/40">
-                <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+                <div className="relative aspect-[16/10] overflow-hidden bg-muted">
                   <ImageWithFallback
                     src={s.image}
                     alt={`${s.title} — Apex Arc Engineering service`}
@@ -644,6 +642,51 @@ className="snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
           ))}
         </div>
       </Section>
+
+      {/* FEATURED PROJECTS */}
+      <section id="projects" aria-labelledby="projects-heading" className="container py-12 md:py-16">
+        <Reveal className="max-w-2xl">
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            Featured projects
+          </span>
+          <h2
+            id="projects-heading"
+            className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground leading-tight"
+          >
+            Engineering work designed for performance, compliance and reliability.
+          </h2>
+        </Reveal>
+
+        <div className="mt-6 md:mt-8 grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {featuredProjects.map((project, i) => (
+            <Reveal key={project.slug} delay={i * 40}>
+              <article className="group h-full overflow-hidden rounded-xl border bg-card shadow-card transition-all duration-300 ease-smooth hover:shadow-elegant hover:-translate-y-1 hover:border-primary/30">
+                <div className="relative aspect-[16/11] overflow-hidden bg-muted">
+                  <ImageWithFallback
+                    src={project.image}
+                    alt={project.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    width={960}
+                    height={720}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
+                </div>
+                <div className="p-4 sm:p-5">
+                  <h3 className="font-display text-lg font-semibold text-foreground leading-snug">
+                    {project.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                    {project.shortDescription}
+                  </p>
+                  <Link to={`/projects/${project.slug}`} className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary/80">
+                    Read More <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </section>
 
 
       {/* WHY CHOOSE US */}

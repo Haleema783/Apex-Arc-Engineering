@@ -18,6 +18,7 @@ import Home from "./pages/Home";
 const Login = lazy(() => import("./pages/Login"));
 const About = lazy(() => import("./pages/About"));
 const Partners = lazy(() => import("./pages/Partners"));
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const AdminLayout = lazy(() => import("@/components/erp/AdminLayout"));
 const StaffLayout = lazy(() => import("@/components/erp/StaffLayout"));
 const Dashboard = lazy(() => import("./pages/erp/Dashboard"));
@@ -88,6 +89,7 @@ const App = () => (
                   <Route path="/" element={<Home />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/partners" element={<Partners />} />
+                  <Route path="/projects/:slug" element={<ProjectDetail />} />
                 </Route>
                 <Route path="/login" element={<Login />} />
 

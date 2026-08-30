@@ -372,7 +372,7 @@ const Home = () => {
 <section
   id="capabilities"
   aria-label="Capabilities"
-className="snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
+className="hidden md:block snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
   <div className="container">
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
       {metrics.map((m, i) => (
@@ -476,7 +476,7 @@ className="snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
       <section aria-labelledby="about-heading" className="bg-background border-b">
         <div className="container py-14 md:py-20">
           <div className="grid gap-10 md:gap-14 lg:grid-cols-[1.05fr_0.95fr] items-center">
-            <Reveal className="order-1">
+            <Reveal className="order-2 md:order-1">
               <h2
                 id="about-heading"
                 className="text-xs font-semibold uppercase tracking-[0.2em] text-primary"
@@ -512,7 +512,7 @@ className="snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
               </div>
             </Reveal>
 
-            <Reveal delay={120} className="order-2">
+            <Reveal delay={120} className="order-1 md:order-2">
               <div className="relative mx-auto max-w-sm">
                 <div className="absolute -inset-3 rounded-2xl bg-gradient-primary opacity-20 blur-2xl" aria-hidden="true" />
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border shadow-elegant">
@@ -612,7 +612,7 @@ className="snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
           </h2>
         </Reveal>
 
-        <div className="mt-6 md:mt-8 grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 md:mt-8 grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
           {services.map((s, i) => (
             <Reveal key={s.title} delay={i * 50}>
               <article className="group h-full overflow-hidden rounded-xl border bg-card shadow-card transition-all duration-300 ease-smooth hover:shadow-elegant hover:-translate-y-1 hover:border-accent/40">
@@ -657,7 +657,7 @@ className="snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
           </h2>
         </Reveal>
 
-        <div className="mt-6 md:mt-8 grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-6 md:mt-8 grid gap-3 sm:gap-4 grid-cols-2 xl:grid-cols-4">
           {featuredProjects.map((project, i) => (
             <Reveal key={project.slug} delay={i * 40}>
               <article className="group h-full overflow-hidden rounded-xl border bg-card shadow-card transition-all duration-300 ease-smooth hover:shadow-elegant hover:-translate-y-1 hover:border-primary/30">

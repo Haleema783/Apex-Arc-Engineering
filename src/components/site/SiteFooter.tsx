@@ -14,7 +14,7 @@ const footerNav = [
 
 const SiteFooter = () => (
   <footer className="border-t border-border/60 bg-gradient-surface">
-    <div className="container py-10 md:py-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.9fr_1.1fr]">
+    <div className="container py-10 md:py-12 grid gap-6 grid-cols-2 lg:grid-cols-[1.2fr_0.9fr_1.1fr]">
       <div className="min-w-0">
         <Link to="/" aria-label="Apex Arc Engineering — home" className="inline-block max-w-full">
           <BrandLogo className="h-12 w-auto max-w-[220px]" loading="lazy" />

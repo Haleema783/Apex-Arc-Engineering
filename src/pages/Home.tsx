@@ -17,14 +17,15 @@ import heroSlidePower from "@/assets/hero-slide-power.jpg";
 import heroSlideAutomation from "@/assets/hero-slide-automation.jpg";
 import heroSlideSolar from "@/assets/hero-slide-solar.jpg";
 import aboutTeamImg from "@/assets/about-team.jpg";
-import serviceAutomationImg from "@/assets/service-automation.jpg";
-import serviceWeldingImg from "@/assets/service-welding.jpg";
+import serviceAutomationImg from "@/assets/plc_hmi_automation(1).png";
+import serviceWeldingImg from "@/assets/maintenance_recovery.png";
 import serviceElectricalImg from "@/assets/service-electrical.jpg";
 import capCivilImg from "@/assets/cap-civil.jpg";
 import capAutomationImg from "@/assets/cap-automation.jpg";
 import capEnergyImg from "@/assets/cap-energy.jpg";
 import ceoPortrait from "@/assets/ceo-potrait.jpeg";
 import capElectricalImg from "@/assets/cap-electrical.jpg";
+import heatingBoilerImg from "@/assets/heating_boiler_combustion.png";
 import { featuredProjects } from "@/data/projects";
 import {
   ArrowRight,
@@ -157,7 +158,7 @@ const services = [
     icon: Flame,
     title: "Heating, Boiler & Combustion Solutions",
     desc: "Engineering solutions for boilers, heating, combustion and related industrial thermal systems.",
-    image: heroIndustrialImg,
+    image: heatingBoilerImg,
   },
 ];
 

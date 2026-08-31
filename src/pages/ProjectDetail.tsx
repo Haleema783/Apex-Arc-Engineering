@@ -1,4 +1,4 @@
-import { ArrowLeft, Camera, Factory, Info, Wrench } from "lucide-react";
+import { ArrowLeft, Factory, Info, Wrench } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import ImageWithFallback from "@/components/ImageWithFallback";
 import Seo from "@/components/Seo";
@@ -99,33 +99,11 @@ const ProjectDetail = () => {
           </div>
         </div>
 
-        <div className="mt-10">
-          <div className="mb-5 flex items-center gap-3">
-            <div className="inline-grid h-10 w-10 place-items-center rounded-lg bg-primary/10 text-primary">
-              <Camera className="h-5 w-5" />
-            </div>
-            <h2 className="font-display text-2xl font-bold text-foreground">Project photographs</h2>
-          </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {project.gallery.map((image, index) => (
-              <div key={`${project.slug}-${index}`} className="overflow-hidden rounded-2xl border bg-card shadow-card">
-                <ImageWithFallback
-                  src={image}
-                  alt={`${project.title} photo ${index + 1}`}
-                  className="h-64 w-full object-cover"
-                  width={900}
-                  height={700}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-
         <div className="mt-10 rounded-2xl border bg-muted/30 p-6">
           <h2 className="font-display text-2xl font-bold text-foreground">Technical information</h2>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-            This project profile supports Apex Arc Engineering’s technical capability in industrial manufacturing,
-            design, automation and service execution. The work highlights the team’s approach to quality compliance,
+            This project profile supports Apex Arc Engineering's technical capability in industrial manufacturing,
+            design, automation and service execution. The work highlights the team's approach to quality compliance,
             operational reliability and fit-for-purpose engineering solutions.
           </p>
         </div>

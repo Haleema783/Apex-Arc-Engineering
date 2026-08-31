@@ -1,11 +1,13 @@
-import heroIndustrialImg from "@/assets/hero-industrial.jpg";
-import serviceAutomationImg from "@/assets/service-automation.jpg";
-import serviceElectricalImg from "@/assets/service-electrical.jpg";
-import serviceWeldingImg from "@/assets/service-welding.jpg";
-import capCivilImg from "@/assets/cap-civil.jpg";
-import capAutomationImg from "@/assets/cap-automation.jpg";
-import capEnergyImg from "@/assets/cap-energy.jpg";
+import heroIndustrialImg from "@/assets/waste_incinerator_manufacturing.png";
+import serviceAutomationImg from "@/assets/plc_control_panel.png";
+import serviceElectricalImg from "@/assets/integrated_flue_gas_washer.png";
+import serviceWeldingImg from "@/assets/maintenance_autoclave_shredding.png";
+import capCivilImg from "@/assets/refractory_insulation.png";
+import capAutomationImg from "@/assets/industrial_generator.png";
+import capEnergyImg from "@/assets/boiler_chiller.png";
 import capElectricalImg from "@/assets/cap-electrical.jpg";
+import hvacCoolingImg from "@/assets/hvac_industrial_cooling.png";
+import heatingBoilerImg from "@/assets/heating_boiler_combustion.png";
 
 export type Project = {
   slug: string;
@@ -134,7 +136,7 @@ export const featuredProjects: Project[] = [
     shortDescription: "High-capacity cooling, ventilation and climate-control systems for demanding industrial facilities.",
     description:
       "Apex Arc Engineering specialises in the design, installation and maintenance of high-capacity climate-control systems, chilling units and ventilation networks for industrial facilities.",
-    image: capEnergyImg,
+    image: hvacCoolingImg,
     relatedService: "Heating, Boiler & Combustion Solutions / Maintenance & Recovery",
     overview:
       "The profile describes these systems as providing precise thermal management and energy efficiency while supporting appropriate operating environments for heavy machinery and large-scale industrial facilities.",
@@ -144,7 +146,7 @@ export const featuredProjects: Project[] = [
       "Project details and maintenance support context",
       "Related service: Heating, Boiler & Combustion Solutions / Maintenance & Recovery",
     ],
-    gallery: [capEnergyImg, heroIndustrialImg, serviceElectricalImg],
+    gallery: [hvacCoolingImg, heroIndustrialImg, serviceElectricalImg],
   },
   {
     slug: "maintenance-of-autoclave-shredding",

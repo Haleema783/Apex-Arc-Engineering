@@ -1,7 +1,7 @@
 import Seo from "@/components/Seo";
 import ImageWithFallback from "@/components/ImageWithFallback";
 import { useReveal } from "@/hooks/useReveal";
-import ceoPortrait from "@/assets/ceo-portrait.png";
+import ceoPortrait from "@/assets/ceo-potrait.jpeg";
 import capElectricalImg from "@/assets/cap-electrical.jpg";
 import capAutomationImg from "@/assets/cap-automation.jpg";
 import { Eye, Target } from "lucide-react";

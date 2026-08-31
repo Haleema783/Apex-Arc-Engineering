@@ -23,7 +23,7 @@ import serviceElectricalImg from "@/assets/service-electrical.jpg";
 import capCivilImg from "@/assets/cap-civil.jpg";
 import capAutomationImg from "@/assets/cap-automation.jpg";
 import capEnergyImg from "@/assets/cap-energy.jpg";
-import ceoPortrait from "@/assets/ceo-portrait.png";
+import ceoPortrait from "@/assets/ceo-potrait.jpeg";
 import capElectricalImg from "@/assets/cap-electrical.jpg";
 import { featuredProjects } from "@/data/projects";
 import {

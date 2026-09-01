@@ -4,6 +4,11 @@ import { useReveal } from "@/hooks/useReveal";
 import ceoPortrait from "@/assets/ceo-potrait.jpeg";
 import capElectricalImg from "@/assets/cap-electrical.jpg";
 import capAutomationImg from "@/assets/cap-automation.jpg";
+import certificatePlc from "@/assets/PLC Electrician.jpeg";
+import certificateElectronics from "@/assets/PCB-Design.jpeg";
+import certificateIndustrial from "@/assets/industrial electricity.jpeg";
+import certificateCircuit from "@/assets/Electronics Circuit Designing & Implementation.jpeg";
+import certificateHardware from "@/assets/computer hardware.jpeg";
 import { Eye, Target } from "lucide-react";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -217,19 +222,22 @@ const About = () => (
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            { title: "Electrical Technology (PLC Electrician)", issuer: "NAVTTC", period: "March 2022 – September 2022" },
-            { title: "Advanced Electronics (PCB Design & Fabrication)", issuer: "NAVTTC", period: "March 2022 – September 2022" },
-            { title: "Industrial Electricity", issuer: "NAVTTC", period: "November 2017 – April 2018" },
-            { title: "Electronics Circuit Designing & Implementation", issuer: "NIE", period: "March 2013 – May 2013" },
-            { title: "Computer Hardware", issuer: "NIE", period: "March 2013 – May 2013" },
+            { title: "Electrical Technology (PLC Electrician)", issuer: "NAVTTC", period: "March 2022 – September 2022", image: certificatePlc },
+            { title: "Advanced Electronics (PCB Design & Fabrication)", issuer: "NAVTTC", period: "March 2022 – September 2022", image: certificateElectronics },
+            { title: "Industrial Electricity", issuer: "NAVTTC", period: "November 2017 – April 2018", image: certificateIndustrial },
+            { title: "Electronics Circuit Designing & Implementation", issuer: "NIE", period: "March 2013 – May 2013", image: certificateCircuit },
+            { title: "Computer Hardware", issuer: "NIE", period: "March 2013 – May 2013", image: certificateHardware },
           ].map((c) => (
             <Reveal key={c.title}>
               <article className="rounded-xl border bg-card p-4 shadow-card">
-                <div className="h-40 w-full bg-muted flex items-center justify-center rounded-md">
-                  <div className="text-sm text-muted-foreground text-center">
-                    <div className="font-semibold">CERTIFICATE IMAGE</div>
-                    <div className="mt-1">TEMPORARY PLACEHOLDER</div>
-                  </div>
+                <div className="h-40 w-full overflow-hidden rounded-md border bg-muted">
+                  <ImageWithFallback
+                    src={c.image}
+                    alt={`${c.title} certificate`}
+                    className="h-full w-full object-cover"
+                    width={800}
+                    height={600}
+                  />
                 </div>
                 <div className="mt-4">
                   <div className="font-display font-semibold text-foreground">{c.title}</div>
@@ -247,11 +255,14 @@ const About = () => (
                         </DialogHeader>
 
                         <div className="mt-4">
-                          <div className="h-72 w-full bg-muted flex items-center justify-center rounded-md">
-                            <div className="text-sm text-muted-foreground text-center">
-                              <div className="font-semibold">CERTIFICATE IMAGE</div>
-                              <div className="mt-1">TEMPORARY PLACEHOLDER</div>
-                            </div>
+                          <div className="overflow-hidden rounded-md border bg-muted">
+                            <ImageWithFallback
+                              src={c.image}
+                              alt={`${c.title} certificate detail`}
+                              className="h-[420px] w-full object-cover"
+                              width={1200}
+                              height={900}
+                            />
                           </div>
                         </div>
                       </DialogContent>

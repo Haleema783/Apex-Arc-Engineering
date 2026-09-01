@@ -5,7 +5,7 @@ import serviceWeldingImg from "@/assets/maintenance_autoclave_shredding.png";
 import capCivilImg from "@/assets/refractory_insulation.png";
 import capAutomationImg from "@/assets/industrial_generator.png";
 import capEnergyImg from "@/assets/boiler_chiller.png";
-import capElectricalImg from "@/assets/cap-electrical.jpg";
+import capElectricalImg from "@/assets/industrial_generator.png";
 import hvacCoolingImg from "@/assets/hvac_industrial_cooling.png";
 import heatingBoilerImg from "@/assets/heating_boiler_combustion.png";
 

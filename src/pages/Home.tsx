@@ -17,14 +17,16 @@ import heroSlidePower from "@/assets/hero-slide-power.jpg";
 import heroSlideAutomation from "@/assets/hero-slide-automation.jpg";
 import heroSlideSolar from "@/assets/hero-slide-solar.jpg";
 import aboutTeamImg from "@/assets/about-team.jpg";
+import aboutElectricalImg from "@/assets/cap-electrical.jpg";
+import aboutAutomationImg from "@/assets/cap-automation.jpg";
 import serviceAutomationImg from "@/assets/plc_hmi_automation(1).png";
 import serviceWeldingImg from "@/assets/maintenance_recovery.png";
 import serviceElectricalImg from "@/assets/service-electrical.jpg";
-import capCivilImg from "@/assets/cap-civil.jpg";
-import capAutomationImg from "@/assets/cap-automation.jpg";
-import capEnergyImg from "@/assets/cap-energy.jpg";
+import capCivilImg from "@/assets/design_engineering_consultancy(1).png";
+import capAutomationImg from "@/assets/panel_building_cabling.png";
+import capEnergyImg from "@/assets/project_installation_erection(1).png";
 import ceoPortrait from "@/assets/ceo-potrait.jpeg";
-import capElectricalImg from "@/assets/cap-electrical.jpg";
+import capElectricalImg from "@/assets/instrumentation_equipment.png";
 import heatingBoilerImg from "@/assets/heating_boiler_combustion.png";
 import { featuredProjects } from "@/data/projects";
 import {
@@ -534,8 +536,8 @@ className="hidden md:block snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
               <div className="relative mx-auto max-w-[560px] pb-10 sm:pb-16">
                 <div className="relative aspect-[16/11] w-[90%] overflow-hidden rounded-[28px] shadow-elegant animate-fade-in">
                   <ImageWithFallback
-                    src={capElectricalImg}
-                    alt="Electrical switchgear installation by Apex Arc Engineering"
+                    src={aboutElectricalImg}
+                    alt="Electrical engineering capability at Apex Arc Engineering"
                     className="h-full w-full object-cover"
                     width={1024}
                     height={768}
@@ -546,8 +548,8 @@ className="hidden md:block snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
                   style={{ animation: "floatUpDown 5s ease-in-out infinite" }}
                 >
                   <ImageWithFallback
-                    src={capAutomationImg}
-                    alt="Industrial automation control panel"
+                    src={aboutAutomationImg}
+                    alt="Automation engineering capability at Apex Arc Engineering"
                     className="h-full w-full object-cover"
                     width={512}
                     height={512}

@@ -873,7 +873,7 @@ className="hidden md:block snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
                 </span>
                 <div>
                   <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Location</div>
-                  <div className="text-xs font-medium text-foreground">Pakistan · nationwide</div>
+                  <div className="text-xs font-medium text-foreground">Sector I-9/3, Industrial Area, Islamabad, Pakistan</div>
                 </div>
               </div>
               <div className="flex items-center gap-3 rounded-lg border bg-card p-3">

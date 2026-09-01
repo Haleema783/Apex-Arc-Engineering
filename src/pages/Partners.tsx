@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 const partners = [
   { name: "Nishat", href: "https://nishatmillsltd.com/?utm_source=chatgpt.com", logo: "/partners/nishat.png" },
   { name: "Sufi Group", href: "https://sufigroup.biz/?utm_source=chatgpt.com", logo: "/partners/hteh.png" },
-  { name: "Habib Trust Eye Hospital", href: "https://upmed.net/", logo: "/partners/hteh.png" },
+  { name: "Habib Trust Eye Hospital", href: "https://upmed.net/", logo: "/partners/hteh.jpg" },
   { name: "Gohar Textile", href: "https://gohartextile.com/", logo: "/partners/frozen-hub.png" },
   { name: "Masood Textile", href: "https://masoodtextile.com/?utm_source=chatgpt.com", logo: "/partners/masood-textile.png" },
   { name: "Frozen Hub", href: "https://frozenhub.com.pk/?utm_source=chatgpt.com", logo: "/partners/sadaqat-group.png" },

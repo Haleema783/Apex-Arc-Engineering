@@ -794,7 +794,7 @@ className="hidden md:block snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
             { name: "Sufi Group", logo: "/partners/sufi-group.png" },
             { name: "Habib Trust Eye Hospital", logo: "/partners/hteh.png" },
             { name: "Gohar Textile", logo: "/partners/gohar-textile.png" },
-            { name: "Masood Textile", logo: "/partners/masood-textile.png" },
+            { name: "Masood Textile", logo: "/partners/hteh.jpg" },
             { name: "Frozen Hub", logo: "/partners/frozen-hub.png" },
             { name: "Murree Brewery", logo: "/partners/murree-brewery.png" },
             { name: "Sadaqat Group", logo: "/partners/sadaqat-group.png" },

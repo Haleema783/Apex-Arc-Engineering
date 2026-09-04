@@ -19,31 +19,15 @@ import heroSlideSolar from "@/assets/hero-slide-solar.jpg";
 import aboutTeamImg from "@/assets/about-team.jpg";
 import aboutElectricalImg from "@/assets/cap-electrical.jpg";
 import aboutAutomationImg from "@/assets/cap-automation.jpg";
-import serviceAutomationImg from "@/assets/plc_hmi_automation(1).png";
-import serviceWeldingImg from "@/assets/maintenance_recovery.png";
-import serviceElectricalImg from "@/assets/service-electrical.jpg";
-import capCivilImg from "@/assets/design_engineering_consultancy(1).png";
-import capAutomationImg from "@/assets/panel_building_cabling.png";
-import capEnergyImg from "@/assets/project_installation_erection(1).png";
 import ceoPortrait from "@/assets/ceo-potrait.jpeg";
-import capElectricalImg from "@/assets/instrumentation_equipment.png";
-import heatingBoilerImg from "@/assets/heating_boiler_combustion.png";
 import { featuredProjects } from "@/data/projects";
+import { serviceCategories } from "@/data/services";
 import {
   ArrowRight,
-  Bolt,
-  Wrench,
   Building2,
   Cpu,
-  Cog,
   Activity,
   Boxes,
-  Database,
-  CircuitBoard,
-  PanelsTopLeft,
-  Flame,
-  LifeBuoy,
-  PencilRuler,
   Layers,
   Mail,
   MapPin,
@@ -110,58 +94,6 @@ const standards = [
   { code: "IEC", desc: "International electrotechnical equipment standards." },
   { code: "NEC", desc: "Electrical installation and wiring safety code." },
   { code: "ISO 9001:2015", desc: "Quality management aligned processes." },
-];
-
-/* ---------- Services ---------- */
-const services = [
-  {
-    icon: PencilRuler,
-    title: "Design & Engineering Consultancy",
-    desc: "Engineering design, drafting, technical consultancy and practical solutions for industrial requirements.",
-    image: capCivilImg,
-  },
-  {
-    icon: Wrench,
-    title: "Project Installation & Erection",
-    desc: "Professional installation, erection and site execution of industrial engineering systems and equipment.",
-    image: capEnergyImg,
-  },
-  {
-    icon: Bolt,
-    title: "Power & Control Systems",
-    desc: "Design, fabrication and installation of electrical power and industrial control systems.",
-    image: serviceElectricalImg,
-  },
-  {
-    icon: PanelsTopLeft,
-    title: "PLC & HMI Automation",
-    desc: "PLC programming, HMI development and automation control solutions for industrial processes.",
-    image: serviceAutomationImg,
-  },
-  {
-    icon: CircuitBoard,
-    title: "Panel Building & Cabling",
-    desc: "Custom electrical and control-panel fabrication with professional cabling and site installation.",
-    image: capAutomationImg,
-  },
-  {
-    icon: Database,
-    title: "Instrumentation & Equipment",
-    desc: "Integration and installation of industrial instrumentation, equipment and control components.",
-    image: capElectricalImg,
-  },
-  {
-    icon: LifeBuoy,
-    title: "Maintenance & Recovery",
-    desc: "Preventive maintenance, breakdown response and recovery services focused on equipment reliability and uptime.",
-    image: serviceWeldingImg,
-  },
-  {
-    icon: Flame,
-    title: "Heating, Boiler & Combustion Solutions",
-    desc: "Engineering solutions for boilers, heating, combustion and related industrial thermal systems.",
-    image: heatingBoilerImg,
-  },
 ];
 
 const stats = [
@@ -298,7 +230,7 @@ const Home = () => {
     "@type": "Organization",
     name: "Apex Arc Engineering",
     url: typeof window !== "undefined" ? window.location.origin : undefined,
-    email: "arcengineering86@gmail.com",
+    email: "apexarcengineering@gmail.com",
     telephone: "+923009742946",
     description:
       "Multi-disciplinary engineering enterprise delivering electrical, civil, mechanical, industrial, automation and energy solutions across Pakistan.",
@@ -615,30 +547,35 @@ className="hidden md:block snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
           </h2>
         </Reveal>
 
-        <div className="mt-6 md:mt-8 grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
-          {services.map((s, i) => (
-            <Reveal key={s.title} delay={i * 50}>
+        <div className="mt-6 md:mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+          {serviceCategories.map((category, i) => (
+            <Reveal key={category.slug} delay={i * 50}>
               <article className="group h-full overflow-hidden rounded-xl border bg-card shadow-card transition-all duration-300 ease-smooth hover:shadow-elegant hover:-translate-y-1 hover:border-accent/40">
                 <div className="relative aspect-[16/10] overflow-hidden bg-muted">
                   <ImageWithFallback
-                    src={s.image}
-                    alt={`${s.title} — Apex Arc Engineering service`}
+                    src={category.image}
+                    alt={`${category.title} — Apex Arc Engineering`}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     width={1024}
                     height={768}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
                   <span className="absolute top-3 left-3 inline-grid h-10 w-10 place-items-center rounded-lg bg-accent text-accent-foreground shadow-glow transition-transform duration-300 group-hover:scale-110">
-                    <s.icon className="h-5 w-5" />
+                    <category.icon className="h-5 w-5" />
                   </span>
                 </div>
                 <div className="p-4 sm:p-5">
                   <h3 className="font-display text-base sm:text-lg font-semibold text-foreground leading-tight">
-                    {s.title}
+                    {category.title}
                   </h3>
                   <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground leading-snug">
-                    {s.desc}
+                    {category.desc}
                   </p>
+                  <Button asChild variant="outline" size="sm" className="mt-4">
+                    <Link to={`/services/${category.slug}`}>
+                      Explore Services <ArrowRight className="ml-1 h-4 w-4" />
+                    </Link>
+                  </Button>
                 </div>
               </article>
             </Reveal>
@@ -842,7 +779,7 @@ className="hidden md:block snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
 
             <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
               <a
-                href="mailto:arcengineering86@gmail.com"
+                href="mailto:apexarcengineering@gmail.com"
                 className="flex items-center gap-3 rounded-lg border bg-card p-3 hover:border-primary/30 transition-colors"
               >
                 <span className="grid h-9 w-9 place-items-center rounded-md bg-primary/10 text-primary shrink-0">
@@ -851,7 +788,7 @@ className="hidden md:block snap-start relative z-10 -mt-12 md:-mt-18 lg:-mt-22">
                 <div className="min-w-0">
                   <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Email</div>
                   <div className="text-xs font-medium text-foreground truncate">
-                    arcengineering86@gmail.com
+                    apexarcengineering@gmail.com
                   </div>
                 </div>
               </a>

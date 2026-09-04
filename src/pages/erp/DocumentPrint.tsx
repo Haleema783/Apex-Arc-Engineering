@@ -135,7 +135,7 @@ const DocumentPrint = () => {
               <p className="text-xs text-muted-foreground mt-0.5">Engineering · Inventory · Compliance</p>
               <p className="text-xs text-muted-foreground mt-1">
                 Pakistan<br />
-                +92 305 8906453 · arcengineering86@gmail.com
+                +92 305 8906453 · apexarcengineering@gmail.com
               </p>
             </div>
           </div>
@@ -272,7 +272,7 @@ const DocumentPrint = () => {
         </section>
 
         <footer className="mt-10 pt-3 border-t text-[10px] text-center text-muted-foreground">
-          This is a computer-generated document from Apex Arc Engineering. For questions contact arcengineering86@gmail.com.
+          This is a computer-generated document from Apex Arc Engineering. For questions contact apexarcengineering@gmail.com.
         </footer>
       </article>
     </div>

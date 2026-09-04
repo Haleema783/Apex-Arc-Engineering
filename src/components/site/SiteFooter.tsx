@@ -5,7 +5,7 @@ import BrandLogo from "@/components/BrandLogo";
 const footerNav = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About Us" },
-  { href: "/#services", label: "Services" },
+  { href: "/services", label: "Services" },
   { href: "/#projects", label: "Projects" },
   { href: "/partners", label: "Our Clients & Partners" },
   { href: "/#capabilities", label: "Capabilities" },
@@ -50,8 +50,8 @@ const SiteFooter = () => (
           </li>
           <li className="flex items-center gap-2 min-w-0">
             <Mail className="h-4 w-4 text-primary shrink-0" />
-            <a href="mailto:arcengineering86@gmail.com" className="hover:text-foreground break-all">
-              arcengineering86@gmail.com
+            <a href="mailto:apexarcengineering@gmail.com" className="hover:text-foreground break-all">
+              apexarcengineering@gmail.com
             </a>
           </li>
         </ul>

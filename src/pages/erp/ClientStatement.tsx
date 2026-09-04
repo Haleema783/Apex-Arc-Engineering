@@ -153,7 +153,7 @@ const ClientStatement = () => {
             <div className="flex justify-between items-start gap-4 flex-wrap">
               <div>
                 <div className="font-display text-xl font-bold text-primary">Apex Arc Engineering</div>
-                <div className="text-xs text-muted-foreground">+92 305 8906453 · arcengineering86@gmail.com</div>
+                <div className="text-xs text-muted-foreground">+92 305 8906453 · apexarcengineering@gmail.com</div>
               </div>
               <div className="text-right">
                 <h2 className="font-display text-lg font-bold">Statement of Account</h2>

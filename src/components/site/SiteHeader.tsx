@@ -10,7 +10,7 @@ const nav: { href: string; label: string; id: string; route?: boolean }[] = [
   { href: "/", label: "Home", id: "home", route: true },
   { href: "/about", label: "About Us", id: "about-page", route: true },
   { href: "/partners", label: "Our Clients & Partners", id: "partners", route: true },
-  { href: "#services", label: "Services", id: "services" },
+  { href: "/services", label: "Services", id: "services", route: true },
   { href: "#projects", label: "Projects", id: "projects" },
   { href: "#capabilities", label: "Capabilities", id: "capabilities" },
   { href: "#contact", label: "Contact", id: "contact" },
